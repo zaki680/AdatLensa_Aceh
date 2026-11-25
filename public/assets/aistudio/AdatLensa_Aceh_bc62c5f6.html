@@ -1,0 +1,2871 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AdatLensa Aceh — Wisata Budaya, Sewa Busana Adat & Fotografer Halal Tourism</title>
+  <style>
+    :root {
+      --emerald-dark: #064e3b;
+      --emerald: #047857;
+      --turquoise: #0d9488;
+      --turquoise-light: #ccfbf1;
+      --gold: #d97706;
+      --gold-bright: #f59e0b;
+      --gold-soft: #fef3c7;
+      --ivory: #fdfbf7;
+      --surface: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #475569;
+      --border: #e2e8f0;
+      --danger: #dc2626;
+      --danger-soft: #fee2e2;
+      --radius: 14px;
+      --shadow: 0 10px 25px -5px rgba(6, 78, 59, 0.08), 0 4px 10px -2px rgba(6, 78, 59, 0.04);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--ivory);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    .motif-strip {
+      height: 10px;
+      width: 100%;
+      background-color: var(--emerald-dark);
+      background-image: url("data:image/svg+xml,%3Csvg width='40' height='10' viewBox='0 0 40 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,10 10,0 20,10 30,0 40,10' fill='none' stroke='%23f59e0b' stroke-width='1.5'/%3E%3Ccircle cx='10' cy='6' r='1.5' fill='%2314b8a6'/%3E%3Ccircle cx='30' cy='6' r='1.5' fill='%2314b8a6'/%3E%3C/svg%3E");
+    }
+
+    .demo-banner {
+      background: #022c22;
+      color: #fde68a;
+      font-size: 0.78rem;
+      text-align: center;
+      padding: 6px 12px;
+      letter-spacing: 0.3px;
+    }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    .nav-container {
+      max-width: 1260px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--emerald-dark);
+    }
+    .brand-title { font-weight: 800; font-size: 1.22rem; letter-spacing: -0.5px; }
+    .brand-sub { font-size: 0.72rem; color: var(--turquoise); font-weight: 600; display: block; margin-top: -4px; }
+
+    nav.main-nav { display: flex; flex-wrap: wrap; gap: 5px; }
+    .nav-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover { background: var(--turquoise-light); color: var(--emerald-dark); }
+    .nav-btn.active { background: var(--emerald-dark); color: #ffffff; border-color: var(--emerald-dark); }
+
+    .header-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--gold-soft);
+      border: 1px solid var(--gold-bright);
+      color: #92400e;
+      padding: 6px 11px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.78rem;
+      cursor: pointer;
+    }
+    .auth-btn {
+      background: var(--emerald);
+      color: #ffffff;
+      border: none;
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .auth-btn:hover { background: var(--emerald-dark); }
+    .user-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ecfdf5;
+      border: 1px solid #6ee7b7;
+      color: var(--emerald-dark);
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .logout-mini {
+      background: var(--danger);
+      color: #fff;
+      border: none;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    main { max-width: 1260px; margin: 0 auto; padding: 24px 20px 60px; }
+    .view-section { display: none; animation: fadeIn 0.25s ease; }
+    .view-section.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Hero Section with Photo Mosaic */
+    .hero {
+      background: linear-gradient(135deg, var(--emerald-dark) 0%, #065f46 55%, var(--turquoise) 100%);
+      color: #ffffff;
+      border-radius: 20px;
+      padding: 32px;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 26px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow);
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(245, 158, 11, 0.22);
+      border: 1px solid var(--gold-bright);
+      color: #fde68a;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .hero h1 { font-size: 2rem; line-height: 1.22; margin-bottom: 14px; }
+    .hero p { color: #e2e8f0; font-size: 0.98rem; margin-bottom: 22px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    .hero-mosaic {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .hero-photo-card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid rgba(245, 158, 11, 0.65);
+      height: 125px;
+      background: #022c22;
+    }
+    .hero-photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.35s ease;
+    }
+    .hero-photo-card:hover img { transform: scale(1.06); }
+    .hero-photo-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(2, 44, 34, 0.92));
+      color: #fef3c7;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 14px 8px 6px;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .btn-gold { background: var(--gold-bright); color: #1e293b; }
+    .btn-gold:hover { background: #eab308; transform: translateY(-1px); }
+    .btn-emerald { background: var(--emerald); color: #ffffff; }
+    .btn-emerald:hover { background: var(--emerald-dark); }
+    .btn-outline { background: transparent; border: 1.5px solid #ffffff; color: #ffffff; }
+    .btn-outline:hover { background: rgba(255,255,255,0.12); }
+    .btn-outline-dark { background: #ffffff; border: 1.5px solid var(--emerald); color: var(--emerald-dark); }
+    .btn-outline-dark:hover { background: var(--turquoise-light); }
+    .btn-wa { background: #16a34a; color: #ffffff; }
+    .btn-wa:hover { background: #15803d; }
+    .btn-danger { background: var(--danger); color: #ffffff; }
+    .btn-sm { padding: 6px 12px; font-size: 0.8rem; border-radius: 8px; }
+
+    .section-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 18px;
+      gap: 12px;
+    }
+    .section-title { font-size: 1.45rem; color: var(--emerald-dark); font-weight: 800; }
+    .section-desc { color: var(--text-muted); font-size: 0.92rem; }
+
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 20px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 24px; }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s;
+    }
+    .card:hover { transform: translateY(-2px); }
+
+    /* Auth Card */
+    .auth-wrapper {
+      max-width: 480px;
+      margin: 12px auto 30px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-top: 6px solid var(--gold-bright);
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+    .auth-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: #f1f5f9;
+      padding: 4px;
+      border-radius: 10px;
+      margin-bottom: 18px;
+    }
+    .auth-tab-btn {
+      padding: 8px;
+      border: none;
+      background: transparent;
+      border-radius: 8px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .auth-tab-btn.active { background: var(--emerald-dark); color: #ffffff; }
+    .demo-accounts-box {
+      background: #f8fafc;
+      border: 1px dashed #94a3b8;
+      border-radius: 10px;
+      padding: 12px;
+      margin-top: 16px;
+    }
+
+    /* Badges & Rating */
+    .badge-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 6px;
+      display: inline-block;
+    }
+    .badge-region { background: #e0f2fe; color: #0369a1; }
+    .badge-cat { background: var(--gold-soft); color: #92400e; }
+    .badge-muslim { background: var(--turquoise-light); color: var(--emerald-dark); border: 1px solid #99f6e4; }
+    .badge-halal-ok { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+    .badge-halal-warn { background: #fef9c3; color: #854d0e; border: 1px solid #fde047; }
+    .badge-rating { background: #fffbeb; color: #b45309; border: 1px solid #fcd34d; }
+
+    /* Filter Bar */
+    .filter-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      box-shadow: var(--shadow);
+    }
+    .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+    .form-group label { font-size: 0.82rem; font-weight: 700; color: var(--emerald-dark); }
+    input, select, textarea {
+      padding: 9px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-family: inherit;
+      background: #ffffff;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--turquoise);
+      box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+    }
+
+    /* Catalog Image Wrapper with Zoom Button */
+    .catalog-media-box {
+      position: relative;
+      width: 100%;
+      height: 185px;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      border: 1px solid var(--border);
+      background: #064e3b;
+    }
+    .catalog-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    .catalog-media-box:hover .catalog-thumb { transform: scale(1.04); }
+    .zoom-photo-btn {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(6, 78, 59, 0.88);
+      color: #fef3c7;
+      border: 1px solid #f59e0b;
+      padding: 4px 9px;
+      border-radius: 8px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .zoom-photo-btn:hover { background: #022c22; }
+
+    .size-chart-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 12px;
+      font-size: 0.78rem;
+    }
+
+    /* Studio */
+    .studio-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .mannequin-stage {
+      background: linear-gradient(180deg, #ecfdf5 0%, #fef3c7 100%);
+      border: 2px solid var(--gold-bright);
+      border-radius: 18px;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
+    .studio-ref-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+      text-align: left;
+    }
+    .studio-ref-card {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .studio-ref-card img {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 7px;
+      flex-shrink: 0;
+    }
+    .layer-control {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    /* Map */
+    .map-container {
+      display: grid;
+      grid-template-columns: 1.35fr 0.95fr;
+      gap: 22px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 28px;
+    }
+    .map-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .map-pill-btn {
+      padding: 5px 11px;
+      border-radius: 999px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: var(--text-main);
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .map-pill-btn.active { background: var(--emerald-dark); color: #ffffff; border-color: var(--emerald-dark); }
+    .map-pin { cursor: pointer; transition: transform 0.2s ease; }
+    .map-pin:hover .pin-core { fill: #f59e0b; }
+    .pin-pulse { animation: pulseRing 1.8s infinite; transform-origin: center; }
+    @keyframes pulseRing {
+      0% { opacity: 0.85; r: 9; }
+      70% { opacity: 0; r: 20; }
+      100% { opacity: 0; r: 20; }
+    }
+
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+    .philo-card {
+      background: var(--surface);
+      border-left: 5px solid var(--gold-bright);
+      padding: 18px;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .table-wrap { overflow-x: auto; background: var(--surface); border-radius: 12px; border: 1px solid var(--border); }
+    table { width: 100%; border-collapse: collapse; font-size: 0.84rem; }
+    th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+    th { background: #f1f5f9; color: var(--emerald-dark); font-weight: 700; }
+
+    .alert { padding: 12px 14px; border-radius: 10px; font-size: 0.85rem; margin-top: 10px; font-weight: 600; }
+    .alert-ok { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+    .alert-err { background: var(--danger-soft); color: #991b1b; border: 1px solid #fca5a5; }
+    .alert-info { background: #e0f2fe; color: #075985; border: 1px solid #bae6fd; }
+
+    .price-tag { font-size: 1.12rem; font-weight: 800; color: var(--emerald-dark); }
+    .sim-note { font-size: 0.74rem; color: var(--text-muted); font-style: italic; }
+
+    .sub-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+    .sub-tab-btn {
+      padding: 7px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .sub-tab-btn.active { background: var(--turquoise); color: #ffffff; border-color: var(--turquoise); }
+
+    /* Modal Overlay */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 16px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-box {
+      background: #ffffff;
+      border-radius: 16px;
+      max-width: 520px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 20px 35px rgba(0,0,0,0.25);
+      border-top: 6px solid var(--emerald);
+    }
+
+    @media (max-width: 860px) {
+      .hero, .studio-layout, .map-container { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 1.65rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="demo-banner" id="demoBanner">
+    ⚠️ MODE SIMULASI DEMO — Seluruh harga sewa, stok ukuran per sesi, QRIS DP, nomor WhatsApp UMKM, dan kode nota adalah data simulasi untuk pelatihan CHAT 2026.
+  </div>
+  <div class="motif-strip"></div>
+
+  <header>
+    <div class="nav-container">
+      <a href="#" class="brand" onclick="switchView('home'); return false;">
+        <svg width="36" height="36" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="40" height="40" rx="10" fill="#064e3b"/>
+          <path d="M10 32V16C10 10.5 14.5 7 20 7C25.5 7 30 10.5 30 16V32" stroke="#f59e0b" stroke-width="2.5"/>
+          <path d="M14 32V18C14 14 16.5 11.5 20 11.5C23.5 11.5 26 14 26 18V32" stroke="#14b8a6" stroke-width="2"/>
+          <circle cx="20" cy="21" r="2.5" fill="#f59e0b"/>
+        </svg>
+        <div>
+          <span class="brand-title">AdatLensa Aceh</span>
+          <span class="brand-sub" data-i18n="tagline">Halal Cultural Tourism & UMKM</span>
+        </div>
+      </a>
+
+      <nav class="main-nav">
+        <button class="nav-btn active" data-view="home" onclick="switchView('home')" data-i18n="nav_home">Beranda</button>
+        <button class="nav-btn" data-view="catalog" onclick="switchView('catalog')" data-i18n="nav_catalog">Katalog & Spot</button>
+        <button class="nav-btn" data-view="studio" onclick="switchView('studio')" data-i18n="nav_studio">Studio Mix & Match</button>
+        <button class="nav-btn" data-view="booking" onclick="switchView('booking')" data-i18n="nav_booking">Booking & Kalkulator</button>
+        <button class="nav-btn" data-view="mybookings" onclick="switchView('mybookings')" id="navMyBookingsBtn" data-i18n="nav_mybookings">Pesanan Saya</button>
+        <button class="nav-btn" data-view="wishlist" onclick="switchView('wishlist')" id="navWishlistBtn">Favorit (0)</button>
+        <button class="nav-btn" data-view="admin" onclick="switchView('admin')" data-i18n="nav_admin">Admin CRUD</button>
+      </nav>
+
+      <div class="header-right">
+        <button class="lang-toggle" onclick="toggleLanguage()" id="langToggleBtn">🌐 ID / EN</button>
+        <div id="authHeaderSlot">
+          <button class="auth-btn" onclick="switchView('login')" data-i18n="btn_login_nav">🔐 Masuk / Daftar</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==================== 0. LOGIN & REGISTER VIEW ==================== -->
+    <section id="view-login" class="view-section">
+      <div class="auth-wrapper">
+        <div style="text-align:center; margin-bottom:18px;">
+          <svg width="46" height="46" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:6px;">
+            <rect width="40" height="40" rx="12" fill="#064e3b"/>
+            <path d="M10 32V16C10 10.5 14.5 7 20 7C25.5 7 30 10.5 30 16V32" stroke="#f59e0b" stroke-width="2.5"/>
+            <circle cx="20" cy="21" r="3" fill="#14b8a6"/>
+          </svg>
+          <h2 style="color:var(--emerald-dark); font-size:1.35rem;" data-i18n="auth_heading">Masuk ke Akun AdatLensa Aceh</h2>
+          <p style="font-size:0.84rem; color:var(--text-muted);" data-i18n="auth_sub">Kelola riwayat pesanan sesi foto wisata atau dashboard katalog mitra UMKM.</p>
+        </div>
+
+        <div id="authGateNotice"></div>
+
+        <div class="auth-tabs">
+          <button class="auth-tab-btn active" id="tabBtnLogin" onclick="switchAuthMode('login')" data-i18n="tab_login">Masuk (Login)</button>
+          <button class="auth-tab-btn" id="tabBtnRegister" onclick="switchAuthMode('register')" data-i18n="tab_register">Daftar Akun Baru</button>
+        </div>
+
+        <form id="loginForm" onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label data-i18n="lbl_email">Email</label>
+            <input type="text" id="loginEmail" required placeholder="wisatawan@adatlensa.id" />
+          </div>
+          <div class="form-group">
+            <label data-i18n="lbl_pass">Kata Sandi (Password)</label>
+            <input type="password" id="loginPassword" required placeholder="••••••••" />
+          </div>
+          <button type="submit" class="btn btn-emerald" style="width:100%; margin-top:6px;" data-i18n="btn_submit_login">🔓 Masuk Sekarang</button>
+        </form>
+
+        <form id="registerForm" style="display:none;" onsubmit="handleRegister(event)">
+          <div class="form-group">
+            <label>Nama Lengkap / Nama Usaha UMKM</label>
+            <input type="text" id="regName" required placeholder="Contoh: Cut Meutia / Sanggar Aceh" />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="regEmail" required placeholder="nama@email.com" />
+          </div>
+          <div class="form-group">
+            <label>Pilih Peran Akun</label>
+            <select id="regRole">
+              <option value="wisatawan">Wisatawan (Booking, QRIS DP & Ulasan)</option>
+              <option value="admin">Mitra UMKM / Admin Katalog (Akses CRUD & Unggah Foto)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Kata Sandi</label>
+            <input type="password" id="regPassword" required minlength="4" placeholder="Minimal 4 karakter" />
+          </div>
+          <button type="submit" class="btn btn-gold" style="width:100%; margin-top:6px;">✨ Daftar & Masuk Otomatis</button>
+        </form>
+
+        <div id="authFeedback"></div>
+
+        <div class="demo-accounts-box">
+          <div style="font-size:0.78rem; font-weight:800; color:var(--emerald-dark); margin-bottom:8px;">
+            ⚡ Pintasan Akun Simulasi Demo (1-Klik Masuk):
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+            <button type="button" class="btn btn-sm btn-outline-dark" onclick="quickDemoLogin('wisatawan')">
+              👤 Demo Wisatawan
+            </button>
+            <button type="button" class="btn btn-sm btn-gold" onclick="quickDemoLogin('admin')">
+              🛡️ Demo Admin UMKM
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 1. HOME VIEW ==================== -->
+    <section id="view-home" class="view-section active">
+      <div class="hero">
+        <div>
+          <span class="hero-badge" data-i18n="hero_badge">✨ Wisata Budaya Halal & Pemberdayaan UMKM Aceh</span>
+          <h1 data-i18n="hero_title">Abadikan Momen Berbalut Busana Adat Aceh & Gayo di Spot Ikonik</h1>
+          <p data-i18n="hero_desc">
+            Padukan busana adat UMKM lokal secara interaktif, cek ketersediaan stok ukuran per slot sesi, bayar DP via QRIS simulasi, dan pesan sesi foto 1–2 jam lengkap dengan MUA Syar'i.
+          </p>
+          <div class="hero-actions">
+            <button class="btn btn-gold" onclick="switchView('studio')" data-i18n="btn_try_studio">🎨 Coba Mix & Match Busana</button>
+            <button class="btn btn-outline" onclick="switchView('catalog')" data-i18n="btn_explore_catalog">Jelajahi Katalog & Spot</button>
+          </div>
+        </div>
+
+        <!-- 2x2 Photo Showcase of Aceh Traditional Attire & Spots -->
+        <div class="hero-mosaic">
+          <div class="hero-photo-card">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Pakaian_Adat_Aceh_Wanita.jpg?width=640"
+                 alt="Busana Daro Baro Aceh"
+                 onerror="this.src=makeFallbackSvg('Daro Baro Aceh', '#064e3b')" />
+            <div class="hero-photo-caption">👑 Daro Baro Pesisir Aceh</div>
+          </div>
+          <div class="hero-photo-card">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Baju_Kerawang_Gayo.jpg?width=640"
+                 alt="Busana Kerawang Gayo"
+                 onerror="this.src=makeFallbackSvg('Kerawang Gayo', '#991b1b')" />
+            <div class="hero-photo-caption">🌿 Busana Kerawang Gayo</div>
+          </div>
+          <div class="hero-photo-card">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Gunongan_Aceh_Sultanate,_diambil_5_May_2026.jpg?width=640"
+                 alt="Taman Sari Gunongan"
+                 onerror="this.src=makeFallbackSvg('Taman Sari Gunongan', '#047857')" />
+            <div class="hero-photo-caption">🕌 Taman Sari Gunongan</div>
+          </div>
+          <div class="hero-photo-card">
+            <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Danau_Laut_Tawar_Takengon.jpg?width=640"
+                 alt="Danau Laut Tawar Takengon"
+                 onerror="this.src=makeFallbackSvg('Danau Laut Tawar', '#0d9488')" />
+            <div class="hero-photo-caption">⛰️ Danau Laut Tawar Gayo</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filosofi Busana Adat -->
+      <div class="section-header">
+        <div>
+          <h2 class="section-title" data-i18n="philo_title">Filosofi Busana Adat Pesisir & Dataran Tinggi Gayo</h2>
+          <p class="section-desc" data-i18n="philo_sub">Setiap helai benang emas dan motif ukiran menyimpan nilai adat, syariat, dan kearifan lokal masyarakat Aceh.</p>
+        </div>
+      </div>
+      <div class="philosophy-grid">
+        <div class="philo-card">
+          <span class="badge badge-cat">Adat Pesisir Aceh</span>
+          <h3 style="margin:6px 0; color:var(--emerald-dark);">Linto Baro & Daro Baro</h3>
+          <p style="font-size:0.88rem; color:var(--text-muted);">
+            Menggunakan dasar hitam bermakna keteguhan dan keagungan, dipadukan sulaman benang emas <em>kasab</em> motif Pucuk Rebung serta <em>Kupiah Meukeutop</em> yang melambangkan kepemimpinan berlandaskan syariat.
+          </p>
+        </div>
+        <div class="philo-card" style="border-left-color: var(--turquoise);">
+          <span class="badge badge-muslim">Adat Dataran Tinggi</span>
+          <h3 style="margin:6px 0; color:var(--emerald-dark);">Kerawang Gayo (Aceh Tengah & Bener Meriah)</h3>
+          <p style="font-size:0.88rem; color:var(--text-muted);">
+            Perpaduan warna hitam, merah, kuning, putih, dan hijau dengan motif <em>Emun Berangkat</em> serta <em>Puter Tali</em> yang melambangkan persatuan, keberanian, dan kesucian niat.
+          </p>
+        </div>
+        <div class="philo-card" style="border-left-color: var(--emerald);">
+          <span class="badge badge-halal-ok">Komitmen Halal Tourism</span>
+          <h3 style="margin:6px 0; color:var(--emerald-dark);">Ruang Ganti Tertutup & MUA Syar'i</h3>
+          <p style="font-size:0.88rem; color:var(--text-muted);">
+            Seluruh mitra persewaan memisahkan ruang ganti Muslimah, menyediakan penataan hijab syar'i tanpa mencukur alis, dan memetakan jarak ke mushalla/tempat wudu terdekat di setiap spot foto.
+          </p>
+        </div>
+      </div>
+
+      <!-- Interactive Geographic SVG Map -->
+      <div class="section-header">
+        <div>
+          <h2 class="section-title" data-i18n="map_title">Peta Ilustratif Sebaran UMKM Busana & Spot Foto Aceh</h2>
+          <p class="section-desc" data-i18n="map_sub">Klik titik wilayah pada peta geografis Aceh di bawah untuk melihat gerai UMKM, spot foto ikonik, dan rute Google Maps.</p>
+        </div>
+      </div>
+      <div class="map-container">
+        <div>
+          <div class="map-pills" id="mapRegionPills">
+            <button class="map-pill-btn active" data-region="Banda Aceh" onclick="selectMapRegion('Banda Aceh')">Banda Aceh</button>
+            <button class="map-pill-btn" data-region="Sabang" onclick="selectMapRegion('Sabang')">Sabang (Pulau Weh)</button>
+            <button class="map-pill-btn" data-region="Aceh Besar" onclick="selectMapRegion('Aceh Besar')">Aceh Besar</button>
+            <button class="map-pill-btn" data-region="Bener Meriah" onclick="selectMapRegion('Bener Meriah')">Bener Meriah</button>
+            <button class="map-pill-btn" data-region="Aceh Tengah" onclick="selectMapRegion('Aceh Tengah')">Aceh Tengah (Takengon)</button>
+          </div>
+
+          <svg id="acehSvgMap" width="100%" height="360" viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg" style="border-radius:14px; border:1px solid #99f6e4; display:block;">
+            <defs>
+              <linearGradient id="seaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#e0f7fa"/>
+                <stop offset="55%" stop-color="#cffafe"/>
+                <stop offset="100%" stop-color="#bae6fd"/>
+              </linearGradient>
+              <linearGradient id="acehLandGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#bbf7d0"/>
+                <stop offset="50%" stop-color="#86efac"/>
+                <stop offset="100%" stop-color="#6ee7b7"/>
+              </linearGradient>
+              <filter id="landShadow" x="-10%" y="-10%" width="120%" height="120%">
+                <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#064e3b" flood-opacity="0.16"/>
+              </filter>
+            </defs>
+
+            <rect width="640" height="420" fill="url(#seaGrad)"/>
+            <g stroke="#0d9488" stroke-width="0.6" stroke-dasharray="3 4" opacity="0.28">
+              <line x1="120" y1="0" x2="120" y2="420"/>
+              <line x1="260" y1="0" x2="260" y2="420"/>
+              <line x1="400" y1="0" x2="400" y2="420"/>
+              <line x1="540" y1="0" x2="540" y2="420"/>
+              <line x1="0" y1="80" x2="640" y2="80"/>
+              <line x1="0" y1="190" x2="640" y2="190"/>
+              <line x1="0" y1="300" x2="640" y2="300"/>
+            </g>
+            <text x="385" y="75" fill="#0369a1" font-size="13" font-weight="800" letter-spacing="2" opacity="0.55">SELAT MALAKA</text>
+            <text x="95" y="265" fill="#0369a1" font-size="13" font-weight="800" letter-spacing="2" opacity="0.55" transform="rotate(32 95 265)">SAMUDRA HINDIA</text>
+
+            <path d="M408 378 L435 352 L456 320 L452 292 L432 272 L404 252 L435 232 L482 222 L535 258 L610 315 L640 345 L640 420 L420 420 Z"
+                  fill="#e2e8f0" stroke="#94a3b8" stroke-width="1.5"/>
+            <text x="530" y="340" fill="#64748b" font-size="11" font-weight="700" letter-spacing="1" text-anchor="middle">PROVINSI</text>
+            <text x="530" y="355" fill="#64748b" font-size="11" font-weight="700" letter-spacing="1" text-anchor="middle">SUMATERA UTARA</text>
+
+            <path filter="url(#landShadow)"
+                  d="M 142 91 L 154 87 L 169 85 L 188 92 L 214 106 L 246 116 L 278 122 L 306 123
+                     L 336 120 L 354 123 L 374 131 L 398 145 L 424 162 L 448 184 L 468 206
+                     L 482 222 L 435 232 L 404 252 L 432 272 L 452 292 L 456 320 L 435 352
+                     L 408 378 L 396 368 L 382 348 L 364 328 L 346 312 L 322 290 L 298 272
+                     L 268 254 L 238 236 L 210 216 L 184 190 L 164 164 L 148 136 L 138 112 L 139 98 Z"
+                  fill="url(#acehLandGrad)" stroke="#047857" stroke-width="2.2" stroke-linejoin="round"/>
+
+            <path d="M 225 142 Q 285 134 345 156 Q 395 182 415 232 Q 392 275 348 268 Q 290 245 245 202 Q 212 172 225 142 Z"
+                  fill="#34d399" opacity="0.42" stroke="#059669" stroke-width="1" stroke-dasharray="4 3"/>
+            <text x="348" y="232" fill="#064e3b" font-size="8.5" font-weight="700" opacity="0.7" text-anchor="middle">Dataran Tinggi Gayo</text>
+
+            <ellipse cx="318" cy="191" rx="14" ry="5.5" transform="rotate(-12 318 191)" fill="#0284c7" stroke="#bae6fd" stroke-width="1.2"/>
+            <text x="342" y="194" fill="#0369a1" font-size="8.5" font-weight="700">Danau Laut Tawar</text>
+
+            <path filter="url(#landShadow)"
+                  d="M 94 36 Q 104 28 116 34 Q 120 44 112 50 Q 104 46 99 51 Q 90 46 94 36 Z"
+                  fill="url(#acehLandGrad)" stroke="#047857" stroke-width="1.8"/>
+            <ellipse cx="117" cy="68" rx="8" ry="4.5" transform="rotate(-25 117 68)" fill="#86efac" stroke="#047857" stroke-width="1.4"/>
+            <ellipse cx="126" cy="79" rx="6" ry="3.5" transform="rotate(-20 126 79)" fill="#86efac" stroke="#047857" stroke-width="1.4"/>
+
+            <path filter="url(#landShadow)"
+                  d="M 155 312 Q 178 324 206 348 Q 214 358 204 362 Q 176 344 150 322 Z"
+                  fill="#86efac" stroke="#047857" stroke-width="1.6"/>
+            <text x="172" y="356" fill="#064e3b" font-size="8.5" font-weight="700">P. Simeulue</text>
+
+            <path d="M 105 42 L 144 92 L 162 114 L 295 126 L 312 160 L 304 192"
+                  fill="none" stroke="#d97706" stroke-width="2" stroke-dasharray="5 4" opacity="0.85"/>
+
+            <g class="map-pin" id="pin-Sabang" onclick="selectMapRegion('Sabang')">
+              <circle class="pin-ring" cx="105" cy="41" r="14" fill="#f59e0b" opacity="0"/>
+              <circle class="pin-core" cx="105" cy="41" r="7.5" fill="#d97706" stroke="#ffffff" stroke-width="2"/>
+              <rect x="44" y="11" width="122" height="17" rx="5" fill="#064e3b" opacity="0.9"/>
+              <text x="105" y="23" font-size="9.5" font-weight="bold" fill="#fef3c7" text-anchor="middle">Sabang (P. Weh)</text>
+            </g>
+
+            <g class="map-pin" id="pin-Banda Aceh" onclick="selectMapRegion('Banda Aceh')">
+              <circle class="pin-ring pin-pulse" cx="144" cy="92" r="16" fill="#f59e0b" opacity="0.6"/>
+              <circle class="pin-core" cx="144" cy="92" r="8.5" fill="#f59e0b" stroke="#ffffff" stroke-width="2.2"/>
+              <rect x="42" y="83" width="88" height="18" rx="5" fill="#064e3b" opacity="0.92"/>
+              <text x="86" y="95" font-size="10" font-weight="bold" fill="#ffffff" text-anchor="middle">Banda Aceh</text>
+            </g>
+
+            <g class="map-pin" id="pin-Aceh Besar" onclick="selectMapRegion('Aceh Besar')">
+              <circle class="pin-ring" cx="162" cy="114" r="14" fill="#f59e0b" opacity="0"/>
+              <circle class="pin-core" cx="162" cy="114" r="7.5" fill="#047857" stroke="#ffffff" stroke-width="2"/>
+              <rect x="64" y="116" width="84" height="17" rx="5" fill="#064e3b" opacity="0.9"/>
+              <text x="106" y="128" font-size="9.5" font-weight="bold" fill="#fef3c7" text-anchor="middle">Aceh Besar</text>
+            </g>
+
+            <g class="map-pin" id="pin-Bener Meriah" onclick="selectMapRegion('Bener Meriah')">
+              <circle class="pin-ring" cx="312" cy="160" r="14" fill="#f59e0b" opacity="0"/>
+              <circle class="pin-core" cx="312" cy="160" r="7.5" fill="#047857" stroke="#ffffff" stroke-width="2"/>
+              <rect x="324" y="150" width="92" height="17" rx="5" fill="#064e3b" opacity="0.9"/>
+              <text x="370" y="162" font-size="9.5" font-weight="bold" fill="#fef3c7" text-anchor="middle">Bener Meriah</text>
+            </g>
+
+            <g class="map-pin" id="pin-Aceh Tengah" onclick="selectMapRegion('Aceh Tengah')">
+              <circle class="pin-ring" cx="302" cy="192" r="14" fill="#f59e0b" opacity="0"/>
+              <circle class="pin-core" cx="302" cy="192" r="8" fill="#d97706" stroke="#ffffff" stroke-width="2"/>
+              <rect x="200" y="185" width="90" height="18" rx="5" fill="#064e3b" opacity="0.92"/>
+              <text x="245" y="197" font-size="9.5" font-weight="bold" fill="#ffffff" text-anchor="middle">Aceh Tengah</text>
+            </g>
+          </svg>
+        </div>
+
+        <div id="mapDetailBox" style="display:flex; flex-direction:column; justify-content:space-between;"></div>
+      </div>
+
+      <!-- Rule-Based Package Recommender -->
+      <div class="section-header">
+        <div>
+          <h2 class="section-title" data-i18n="rec_title">Rekomendasi Paket Wisata Foto Adat (Rule-Based)</h2>
+          <p class="section-desc" data-i18n="rec_sub">Pilih tipe wisatawan, wilayah tujuan, dan perkiraan anggaran untuk menemukan kombinasi paket terbaik.</p>
+        </div>
+      </div>
+      <div class="filter-panel" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+        <div class="form-group" style="margin:0;">
+          <label>Tipe Wisatawan</label>
+          <select id="recType" onchange="renderRecommendations()">
+            <option value="Semua">Semua Tipe</option>
+            <option value="Solo">Solo Traveler</option>
+            <option value="Pasangan">Pasangan (Couple)</option>
+            <option value="Keluarga">Keluarga (3–5 Orang)</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label>Wilayah Tujuan</label>
+          <select id="recRegion" onchange="renderRecommendations()">
+            <option value="Semua">Semua Wilayah</option>
+            <option value="Banda Aceh">Banda Aceh</option>
+            <option value="Sabang">Sabang</option>
+            <option value="Aceh Besar">Aceh Besar</option>
+            <option value="Aceh Tengah">Aceh Tengah</option>
+            <option value="Bener Meriah">Bener Meriah</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label>Anggaran Maksimal (Rp)</label>
+          <select id="recBudget" onchange="renderRecommendations()">
+            <option value="99999999">Semua Anggaran</option>
+            <option value="350000">Maksimal Rp 350.000</option>
+            <option value="650000">Maksimal Rp 650.000</option>
+            <option value="1200000">Maksimal Rp 1.200.000</option>
+          </select>
+        </div>
+      </div>
+      <div id="recommendationResults" class="grid-3"></div>
+    </section>
+
+    <!-- ==================== 2. CATALOG & SPOTS VIEW ==================== -->
+    <section id="view-catalog" class="view-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title" data-i18n="cat_title">Katalog Busana Adat, Portofolio Fotografer & Spot Ikonik</h2>
+          <p class="section-desc">Dilengkapi foto detail busana adat, stok real-time per ukuran, rating ulasan wisatawan, serta indikator sertifikasi halal.</p>
+        </div>
+      </div>
+
+      <div class="filter-panel">
+        <div class="form-group" style="margin:0;">
+          <label>Cari Koleksi / Spot</label>
+          <input type="text" id="filterSearch" placeholder="Contoh: Daro Baro, Gayo, Gunongan..." oninput="renderCatalog()" />
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label>Wilayah</label>
+          <select id="filterRegion" onchange="renderCatalog()">
+            <option value="Semua">Semua Wilayah (5 Kab/Kota)</option>
+            <option value="Banda Aceh">Banda Aceh</option>
+            <option value="Sabang">Sabang</option>
+            <option value="Aceh Besar">Aceh Besar</option>
+            <option value="Aceh Tengah">Aceh Tengah</option>
+            <option value="Bener Meriah">Bener Meriah</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label>Kategori</label>
+          <select id="filterCategory" onchange="renderCatalog()">
+            <option value="Semua">Semua Kategori</option>
+            <option value="Busana Adat Aceh">Busana Adat Aceh</option>
+            <option value="Busana Kerawang Gayo">Busana Kerawang Gayo</option>
+            <option value="Aksesori Kepala">Aksesori Kepala</option>
+            <option value="Paket Fotografer & MUA">Paket Fotografer & MUA Syar'i</option>
+            <option value="Spot Foto Ikonik">Spot Foto Ikonik</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label>Ukuran Busana</label>
+          <select id="filterSize" onchange="renderCatalog()">
+            <option value="Semua">Semua Ukuran</option>
+            <option value="S">Ukuran S</option>
+            <option value="M">Ukuran M</option>
+            <option value="L">Ukuran L</option>
+            <option value="XL">Ukuran XL</option>
+          </select>
+        </div>
+        <div class="form-group" style="margin:0;">
+          <label>Urutkan</label>
+          <select id="filterSort" onchange="renderCatalog()">
+            <option value="default">Paling Relevan</option>
+            <option value="rating_desc">Rating Tertinggi ⭐</option>
+            <option value="price_asc">Harga Terendah</option>
+            <option value="price_desc">Harga Tertinggi</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="catalogGrid" class="grid-3"></div>
+    </section>
+
+    <!-- ==================== 3. STUDIO MIX & MATCH VIEW ==================== -->
+    <section id="view-studio" class="view-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Studio Interaktif Mix & Match Busana Adat</h2>
+          <p class="section-desc">Padukan mahkota/penutup kepala, busana utama, aksesori, dan latar spot foto Aceh secara visual.</p>
+        </div>
+      </div>
+
+      <div class="studio-layout">
+        <div class="mannequin-stage">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span class="badge badge-muslim" id="studioSpotLabel">Latar: Taman Sari Gunongan</span>
+            <button class="btn btn-sm btn-outline-dark" onclick="randomizeMixMatch()">🎲 Acak Paduan</button>
+          </div>
+
+          <svg id="mixMatchSvg" width="100%" height="310" viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg">
+            <rect id="svgBgSky" x="10" y="10" width="280" height="320" rx="16" fill="#e0f2fe"/>
+            <path id="svgBgLandmark" d="M40 270 Q150 150 260 270 Z" fill="#99f6e4" opacity="0.6"/>
+            <rect x="10" y="265" width="280" height="65" rx="8" fill="#064e3b" opacity="0.15"/>
+
+            <circle cx="150" cy="105" r="24" fill="#fde68a" stroke="#d97706" stroke-width="1.5"/>
+            <path d="M124 105 C124 82 176 82 176 105 C178 130 168 142 150 142 C132 142 122 130 124 105 Z" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+            <circle cx="150" cy="107" r="16" fill="#fed7aa"/>
+
+            <g id="svgLayerHead"></g>
+            <g id="svgLayerAttire"></g>
+            <g id="svgLayerAcc"></g>
+          </svg>
+
+          <!-- Real Photo Reference Strip -->
+          <div class="studio-ref-strip">
+            <div class="studio-ref-card">
+              <img id="studioAttireRefImg" src="" alt="Referensi Busana" />
+              <div>
+                <div style="font-size:0.68rem; font-weight:800; color:var(--turquoise);">REFERENSI BUSANA</div>
+                <div id="studioAttireRefLabel" style="font-size:0.75rem; font-weight:700; color:var(--emerald-dark);">Daro Baro Aceh</div>
+              </div>
+            </div>
+            <div class="studio-ref-card">
+              <img id="studioBgRefImg" src="" alt="Referensi Lokasi" />
+              <div>
+                <div style="font-size:0.68rem; font-weight:800; color:var(--gold);">REFERENSI LOKASI</div>
+                <div id="studioBgRefLabel" style="font-size:0.75rem; font-weight:700; color:var(--emerald-dark);">Gunongan</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:12px; padding-top:12px; border-top:1px dashed #cbd5e1;">
+            <div style="font-size:0.85rem; color:var(--text-muted);">Estimasi Total Sewa Set Paduan (Simulasi):</div>
+            <div class="price-tag" id="studioTotalPrice">Rp 225.000</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="color:var(--emerald-dark); margin-bottom:14px;">Pilih Komponen Busana & Latar</h3>
+
+          <div class="layer-control">
+            <div>
+              <small style="color:var(--turquoise); font-weight:700;">1. PENUTUP KEPALA / MAHKOTA</small>
+              <div id="headName" style="font-weight:700;">Sunting Aceh Keemasan</div>
+              <small id="headPrice" class="text-muted">Rp 60.000</small>
+            </div>
+            <div style="display:flex; gap:6px;">
+              <button class="btn btn-sm btn-outline-dark" onclick="cycleLayer('head', -1)">◀</button>
+              <button class="btn btn-sm btn-outline-dark" onclick="cycleLayer('head', 1)">▶</button>
+            </div>
+          </div>
+
+          <div class="layer-control">
+            <div>
+              <small style="color:var(--turquoise); font-weight:700;">2. BUSANA UTAMA (PESISIR / GAYO)</small>
+              <div id="attireName" style="font-weight:700;">Baju Daro Baro Emerald-Gold</div>
+              <small id="attirePrice" class="text-muted">Rp 130.000</small>
+            </div>
+            <div style="display:flex; gap:6px;">
+              <button class="btn btn-sm btn-outline-dark" onclick="cycleLayer('attire', -1)">◀</button>
+              <button class="btn btn-sm btn-outline-dark" onclick="cycleLayer('attire', 1)">▶</button>
+            </div>
+          </div>
+
+          <div class="layer-control">
+            <div>
+              <small style="color:var(--turquoise); font-weight:700;">3. AKSESORI PENDAMPING</small>
+              <div id="accName" style="font-weight:700;">Selempang Songket & Pending Emas</div>
+              <small id="accPrice" class="text-muted">Rp 35.000</small>
+            </div>
+            <div style="display:flex; gap:6px;">
+              <button class="btn btn-sm btn-outline-dark" onclick="cycleLayer('acc', -1)">◀</button>
+              <button class="btn btn-sm btn-outline-dark" onclick="cycleLayer('acc', 1)">▶</button>
+            </div>
+          </div>
+
+          <div class="layer-control">
+            <div>
+              <small style="color:var(--turquoise); font-weight:700;">4. PRATINJAU LATAR SPOT IKONIK</small>
+              <div id="bgName" style="font-weight:700;">Taman Sari Gunongan (Banda Aceh)</div>
+            </div>
+            <div style="display:flex; gap:6px;">
+              <button class="btn btn-sm btn-outline-dark" onclick="cycleLayer('bg', -1)">◀</button>
+              <button class="btn btn-sm btn-outline-dark" onclick="cycleLayer('bg', 1)">▶</button>
+            </div>
+          </div>
+
+          <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:16px;">
+            <button class="btn btn-emerald" style="flex:1;" onclick="applyMixMatchToBooking()">📅 Gunakan Set Ini di Booking</button>
+            <button class="btn btn-gold" onclick="saveMixMatchFavorite()">❤️ Simpan ke Favorit</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 4. BOOKING, CALENDAR & CALCULATOR VIEW ==================== -->
+    <section id="view-booking" class="view-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title" data-i18n="book_title">Cek Stok Per Ukuran & Slot, Panduan Ukuran & Kalkulator Sesi</h2>
+          <p class="section-desc">Validasi ketersediaan stok per ukuran dan slot waktu (Pagi / Golden Hour), lengkap dengan perhitungan DP 30%.</p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <h3 style="color:var(--emerald-dark);" data-i18n="book_form_title">Formulir Pemesanan & Cek Stok Sesi</h3>
+            <button type="button" class="btn btn-sm btn-outline-dark" onclick="toggleSizeChart()">📏 Panduan Ukuran</button>
+          </div>
+
+          <div id="sizeChartBox" class="size-chart-box" style="display:none;">
+            <strong style="color:var(--emerald-dark);">📏 Panduan Ukuran Standar Busana Adat Aceh & Gayo:</strong>
+            <table style="margin-top:6px; font-size:0.76rem;">
+              <thead>
+                <tr><th>Ukuran</th><th>Lingkar Dada</th><th>Panjang Baju</th><th>Rekomendasi Tinggi</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>S</strong></td><td>88 – 92 cm</td><td>95 cm</td><td>150 – 158 cm</td></tr>
+                <tr><td><strong>M</strong></td><td>94 – 98 cm</td><td>100 cm</td><td>158 – 165 cm</td></tr>
+                <tr><td><strong>L</strong></td><td>100 – 106 cm</td><td>105 cm</td><td>165 – 172 cm</td></tr>
+                <tr><td><strong>XL</strong></td><td>108 – 114 cm</td><td>110 cm</td><td>170 – 178 cm</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="lbl_booker_name">Nama Pemesan</label>
+            <input type="text" id="bookName" placeholder="Contoh: Nadia Putri / Wisatawan" value="Tamu Wisatawan Aceh" />
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="lbl_choose_attire">Pilih Koleksi Busana Adat</label>
+            <select id="bookBusana" onchange="checkAvailabilityAndCalc()"></select>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+            <div class="form-group">
+              <label data-i18n="lbl_visit_date">Tanggal Kunjungan</label>
+              <input type="date" id="bookDate" onchange="checkAvailabilityAndCalc()" />
+            </div>
+            <div class="form-group">
+              <label data-i18n="lbl_size">Ukuran Busana</label>
+              <select id="bookSize" onchange="checkAvailabilityAndCalc()">
+                <option value="S">S (Small)</option>
+                <option value="M" selected>M (Medium)</option>
+                <option value="L">L (Large)</option>
+                <option value="XL">XL (Extra Large)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1.3fr 0.7fr; gap:12px;">
+            <div class="form-group">
+              <label data-i18n="lbl_slot">Slot Waktu Sesi Foto</label>
+              <select id="bookSlot" onchange="checkAvailabilityAndCalc()">
+                <option value="08:00 - 09:30 WIB (Pagi Cerah)">08:00 – 09:30 WIB (Sesi Pagi)</option>
+                <option value="16:30 - 18:00 WIB (Golden Hour)">16:30 – 18:00 WIB (Golden Hour)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label data-i18n="lbl_pax">Jumlah Stel / Org</label>
+              <input type="number" id="bookPax" min="1" max="10" value="1" onchange="checkAvailabilityAndCalc()" />
+            </div>
+          </div>
+
+          <div id="availabilityFeedback"></div>
+
+          <div class="form-group" style="margin-top:12px;">
+            <label data-i18n="lbl_spot">Pilih Spot Foto Ikonik</label>
+            <select id="bookSpot" onchange="checkAvailabilityAndCalc()"></select>
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="lbl_photo_pkg">Paket Fotografer & MUA Syar'i (1–2 Jam)</label>
+            <select id="bookPhotoPkg" onchange="checkAvailabilityAndCalc()"></select>
+          </div>
+
+          <div class="form-group">
+            <label data-i18n="lbl_notes">Catatan Mix & Match / Kebutuhan Hijab Syar'i</label>
+            <input type="text" id="bookNotes" placeholder="Contoh: Pakai Sunting Aceh + ruang ganti Muslimah" />
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:20px;">
+          <div class="card" style="border:2px solid var(--emerald);">
+            <h3 style="color:var(--emerald-dark); margin-bottom:10px;">Rincian Estimasi Anggaran & DP (Simulasi)</h3>
+            <div id="costBreakdown" style="font-size:0.9rem; line-height:1.8;"></div>
+            <hr style="margin:12px 0; border:none; border-top:1px solid var(--border);" />
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-weight:700;">Total Estimasi Biaya:</span>
+              <span class="price-tag" id="bookingTotalDisplay">Rp 0</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px; color:var(--gold);">
+              <span style="font-weight:700; font-size:0.86rem;">Uang Muka (DP 30% via QRIS):</span>
+              <strong id="bookingDpDisplay">Rp 0</strong>
+            </div>
+            <p class="sim-note" style="margin-top:6px;">*Gratis reschedule 1x jika hujan deras di lokasi outdoor.</p>
+
+            <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:16px;">
+              <button class="btn btn-emerald" style="flex:1;" onclick="submitDemoBooking()">✅ Simpan Booking & Lanjut QRIS</button>
+              <a id="waCheckoutLink" href="#" target="_blank" rel="noopener" class="btn btn-wa">💬 Checkout WA</a>
+            </div>
+            <div id="bookingCreatedAlert"></div>
+          </div>
+
+          <div class="card">
+            <h3 style="color:var(--emerald-dark); margin-bottom:8px;">🔍 Lacak Status Booking (Kode Nota)</h3>
+            <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:12px;">
+              Masukkan kode nota (contoh: <strong>#ADL-1024</strong>) atau buka tab <strong>Pesanan Saya</strong> setelah login.
+            </p>
+            <div style="display:flex; gap:8px;">
+              <input type="text" id="trackCodeInput" placeholder="#ADL-1024" style="flex:1;" />
+              <button class="btn btn-gold" onclick="trackBookingStatus()">Lacak</button>
+            </div>
+            <div id="trackResultBox" style="margin-top:12px;"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 5. MY BOOKINGS (PESANAN SAYA) VIEW ==================== -->
+    <section id="view-mybookings" class="view-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title" data-i18n="myb_title">Pesanan Saya — Pembayaran DP QRIS, Reschedule Cuaca & Ulasan</h2>
+          <p class="section-desc" data-i18n="myb_sub">Kelola jadwal sesi foto Anda, selesaikan pembayaran DP simulasi, ajukan reschedule bila hujan, atau beri ulasan.</p>
+        </div>
+        <button class="btn btn-emerald btn-sm" onclick="switchView('booking')">+ Buat Pesanan Baru</button>
+      </div>
+      <div id="myBookingsContainer" class="grid-2"></div>
+    </section>
+
+    <!-- ==================== 6. WISHLIST VIEW ==================== -->
+    <section id="view-wishlist" class="view-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Daftar Favorit Wisatawan (Wishlist)</h2>
+          <p class="section-desc">Koleksi busana adat, spot foto, dan paduan Mix & Match yang tersimpan di perangkat Anda.</p>
+        </div>
+      </div>
+      <div id="wishlistGrid" class="grid-3"></div>
+    </section>
+
+    <!-- ==================== 7. ADMIN DEMO CRUD VIEW ==================== -->
+    <section id="view-admin" class="view-section">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title">Dashboard Admin UMKM — Kelola Stok Ukuran, Unggah Foto & Pesanan</h2>
+          <p class="section-desc">Tambahkan koleksi busana lengkap dengan foto produk dan stok per ukuran (S, M, L, XL).</p>
+        </div>
+        <button class="btn btn-danger btn-sm" onclick="resetDemoData()">🔄 Reset Semua Data Demo</button>
+      </div>
+
+      <div class="sub-tabs">
+        <button class="sub-tab-btn active" onclick="switchAdminTab('busana', this)">Kelola Busana & Stok Ukuran</button>
+        <button class="sub-tab-btn" onclick="switchAdminTab('spot', this)">Kelola Spot Foto</button>
+        <button class="sub-tab-btn" onclick="switchAdminTab('bookings', this)">Status Pemesanan & DP</button>
+      </div>
+
+      <div id="admin-tab-busana">
+        <div class="card" style="margin-bottom:20px;">
+          <h4 style="margin-bottom:12px; color:var(--emerald-dark);" id="busanaFormTitle">+ Tambah / Edit Busana Adat</h4>
+          <input type="hidden" id="editBusanaId" />
+          <input type="hidden" id="admBusanaImgData" />
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px;">
+            <div class="form-group"><label>Nama Busana</label><input type="text" id="admBusanaNama" placeholder="Contoh: Baju Linto Baro Merah Marun" /></div>
+            <div class="form-group"><label>Kategori</label>
+              <select id="admBusanaKat">
+                <option value="Busana Adat Aceh">Busana Adat Aceh</option>
+                <option value="Busana Kerawang Gayo">Busana Kerawang Gayo</option>
+                <option value="Aksesori Kepala">Aksesori Kepala</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Wilayah</label>
+              <select id="admBusanaWil">
+                <option value="Banda Aceh">Banda Aceh</option>
+                <option value="Sabang">Sabang</option>
+                <option value="Aceh Besar">Aceh Besar</option>
+                <option value="Aceh Tengah">Aceh Tengah</option>
+                <option value="Bener Meriah">Bener Meriah</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Harga Sewa (Rp)</label><input type="number" id="admBusanaHarga" value="150000" /></div>
+            <div class="form-group"><label>Mitra UMKM</label><input type="text" id="admBusanaMitra" placeholder="Sanggar Cut Nyak" /></div>
+            <div class="form-group">
+              <label>Unggah Foto Busana (Opsional)</label>
+              <input type="file" id="admBusanaFile" accept="image/*" onchange="handleAdminImageUpload(event)" />
+              <div id="admImgPreview" style="margin-top:6px;"></div>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; background:#f8fafc; padding:10px; border-radius:10px; margin-bottom:12px;">
+            <div class="form-group" style="margin:0;"><label>Stok Ukuran S</label><input type="number" id="admStokS" min="0" value="2" /></div>
+            <div class="form-group" style="margin:0;"><label>Stok Ukuran M</label><input type="number" id="admStokM" min="0" value="3" /></div>
+            <div class="form-group" style="margin:0;"><label>Stok Ukuran L</label><input type="number" id="admStokL" min="0" value="2" /></div>
+            <div class="form-group" style="margin:0;"><label>Stok Ukuran XL</label><input type="number" id="admStokXL" min="0" value="1" /></div>
+          </div>
+
+          <div class="form-group"><label>Tanggal Libur / Perawatan Laundry (YYYY-MM-DD, pisah koma)</label><input type="text" id="admBusanaBooked" placeholder="2026-11-30" /></div>
+
+          <div style="display:flex; gap:10px; margin-top:8px;">
+            <button class="btn btn-emerald" onclick="saveBusanaCRUD()">💾 Simpan Busana</button>
+            <button class="btn btn-outline-dark" onclick="clearBusanaForm()">Batal</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Foto & Nama Busana</th><th>Wilayah</th><th>Stok Per Ukuran</th><th>Harga Sewa</th><th>Rating</th><th>Aksi</th></tr>
+            </thead>
+            <tbody id="adminBusanaTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="admin-tab-spot" style="display:none;">
+        <div class="card" style="margin-bottom:20px;">
+          <h4 style="margin-bottom:12px; color:var(--emerald-dark);">+ Tambah Spot Foto Ikonik</h4>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px;">
+            <div class="form-group"><label>Nama Spot Foto</label><input type="text" id="admSpotNama" placeholder="Contoh: Bukit Pantan Terong" /></div>
+            <div class="form-group"><label>Wilayah</label>
+              <select id="admSpotWil">
+                <option value="Banda Aceh">Banda Aceh</option>
+                <option value="Sabang">Sabang</option>
+                <option value="Aceh Besar">Aceh Besar</option>
+                <option value="Aceh Tengah">Aceh Tengah</option>
+                <option value="Bener Meriah">Bener Meriah</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Estimasi Tiket (Rp)</label><input type="number" id="admSpotTiket" value="10000" /></div>
+            <div class="form-group"><label>Fasilitas Ibadah</label><input type="text" id="admSpotIbadah" placeholder="Mushalla & tempat wudu 50m" /></div>
+            <div class="form-group"><label>Layanan Ramah Muslim</label><input type="text" id="admSpotMuslim" placeholder="Ruang ganti tertutup tersedia" /></div>
+          </div>
+          <button class="btn btn-emerald" onclick="addSpotCRUD()">💾 Tambah Spot Foto</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Nama Spot</th><th>Wilayah</th><th>Estimasi Tiket</th><th>Fasilitas Ibadah</th><th>Aksi</th></tr>
+            </thead>
+            <tbody id="adminSpotTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="admin-tab-bookings" style="display:none;">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Kode Nota</th><th>Pemesan</th><th>Tanggal & Slot</th><th>Ukuran</th><th>Status DP</th><th>Status Booking</th></tr>
+            </thead>
+            <tbody id="adminBookingTable"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== MODAL FOR QRIS DP / RESCHEDULE / REVIEW / PHOTO LIGHTBOX ==================== -->
+  <div id="actionModalBackdrop" class="modal-backdrop" onclick="closeActionModal(event)">
+    <div class="modal-box" id="actionModalContent" onclick="event.stopPropagation()"></div>
+  </div>
+
+  <script>
+    // ==================== OFFLINE FALLBACK SVG GENERATOR ====================
+    function makeFallbackSvg(label, bgColor) {
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="360" viewBox="0 0 600 360">
+        <rect width="600" height="360" fill="${bgColor || '#064e3b'}"/>
+        <path d="M0 360 Q300 120 600 360 Z" fill="#f59e0b" opacity="0.25"/>
+        <text x="300" y="175" fill="#ffffff" font-family="sans-serif" font-size="24" font-weight="bold" text-anchor="middle">${label}</text>
+        <text x="300" y="210" fill="#fef3c7" font-family="sans-serif" font-size="15" text-anchor="middle">AdatLensa Aceh Heritage Collection</text>
+      </svg>`;
+      return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    }
+
+    function openPhotoLightbox(imgUrl, title, subtitle, fallbackColor) {
+      const safeFallback = makeFallbackSvg(title, fallbackColor);
+      document.getElementById('actionModalContent').innerHTML = `
+        <div style="text-align:center;">
+          <img src="${imgUrl}" alt="${title}"
+               onerror="this.src='${safeFallback}'"
+               style="width:100%; max-height:340px; object-fit:cover; border-radius:12px; border:1px solid var(--border); margin-bottom:12px;" />
+          <h3 style="color:var(--emerald-dark); margin-bottom:4px;">${title}</h3>
+          <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:14px;">${subtitle}</p>
+          <button class="btn btn-emerald btn-sm" onclick="closeActionModal()">Tutup Pratinjau</button>
+        </div>
+      `;
+      document.getElementById('actionModalBackdrop').classList.add('open');
+    }
+
+    // ==================== AUTH ACCOUNTS & SESSION ====================
+    const DEFAULT_USERS = [
+      { id: 'USR-01', name: 'Teuku Gilang (Wisatawan)', email: 'wisatawan@adatlensa.id', password: '123', role: 'wisatawan' },
+      { id: 'USR-02', name: 'Admin Sanggar Aceh', email: 'admin@adatlensa.id', password: '123', role: 'admin' }
+    ];
+
+    let usersList = JSON.parse(localStorage.getItem('adatlensa_users_v1')) || JSON.parse(JSON.stringify(DEFAULT_USERS));
+    let currentUser = JSON.parse(localStorage.getItem('adatlensa_session_v1')) || null;
+
+    function saveAuthStorage() {
+      localStorage.setItem('adatlensa_users_v1', JSON.stringify(usersList));
+      localStorage.setItem('adatlensa_session_v1', JSON.stringify(currentUser));
+    }
+
+    function updateAuthUI() {
+      const slot = document.getElementById('authHeaderSlot');
+      if (currentUser) {
+        const badgeIcon = currentUser.role === 'admin' ? '🛡️' : '👤';
+        const roleTag = currentUser.role === 'admin' ? 'Admin UMKM' : 'Wisatawan';
+        slot.innerHTML = `
+          <div class="user-chip">
+            <span>${badgeIcon} ${currentUser.name} <small style="opacity:0.75;">(${roleTag})</small></span>
+            <button class="logout-mini" onclick="logoutUser()">Keluar</button>
+          </div>
+        `;
+        const bookNameInput = document.getElementById('bookName');
+        if (bookNameInput && (bookNameInput.value === 'Tamu Wisatawan Aceh' || !bookNameInput.value)) {
+          bookNameInput.value = currentUser.name;
+        }
+      } else {
+        const btnText = currentLang === 'id' ? '🔐 Masuk / Daftar' : '🔐 Login / Register';
+        slot.innerHTML = `<button class="auth-btn" onclick="switchView('login')">${btnText}</button>`;
+      }
+    }
+
+    function switchAuthMode(mode) {
+      document.getElementById('tabBtnLogin').classList.toggle('active', mode === 'login');
+      document.getElementById('tabBtnRegister').classList.toggle('active', mode === 'register');
+      document.getElementById('loginForm').style.display = mode === 'login' ? 'block' : 'none';
+      document.getElementById('registerForm').style.display = mode === 'register' ? 'block' : 'none';
+      document.getElementById('authFeedback').innerHTML = '';
+    }
+
+    function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+      const pass = document.getElementById('loginPassword').value;
+      const found = usersList.find(u => u.email.toLowerCase() === email && u.password === pass);
+
+      if (!found) {
+        document.getElementById('authFeedback').innerHTML = `<div class="alert alert-err">❌ Email atau kata sandi salah. Gunakan tombol <strong>Demo Wisatawan</strong> atau <strong>Demo Admin UMKM</strong> di bawah.</div>`;
+        return;
+      }
+
+      currentUser = { id: found.id, name: found.name, email: found.email, role: found.role };
+      saveAuthStorage();
+      updateAuthUI();
+      document.getElementById('authGateNotice').innerHTML = '';
+      document.getElementById('authFeedback').innerHTML = '';
+      switchView(found.role === 'admin' ? 'admin' : 'mybookings');
+    }
+
+    function handleRegister(e) {
+      e.preventDefault();
+      const name = document.getElementById('regName').value.trim();
+      const email = document.getElementById('regEmail').value.trim().toLowerCase();
+      const role = document.getElementById('regRole').value;
+      const password = document.getElementById('regPassword').value;
+
+      if (usersList.some(u => u.email.toLowerCase() === email)) {
+        document.getElementById('authFeedback').innerHTML = `<div class="alert alert-err">⚠️ Email sudah terdaftar. Silakan gunakan tab Masuk.</div>`;
+        return;
+      }
+
+      const newUser = { id: 'USR-' + Date.now(), name, email, password, role };
+      usersList.push(newUser);
+      currentUser = { id: newUser.id, name: newUser.name, email: newUser.email, role: newUser.role };
+      saveAuthStorage();
+      updateAuthUI();
+      document.getElementById('authGateNotice').innerHTML = '';
+      switchView(role === 'admin' ? 'admin' : 'mybookings');
+    }
+
+    function quickDemoLogin(role) {
+      const demo = usersList.find(u => u.role === role) || DEFAULT_USERS[0];
+      currentUser = { id: demo.id, name: demo.name, email: demo.email, role: demo.role };
+      saveAuthStorage();
+      updateAuthUI();
+      document.getElementById('authGateNotice').innerHTML = '';
+      switchView(role === 'admin' ? 'admin' : 'mybookings');
+    }
+
+    function logoutUser() {
+      currentUser = null;
+      localStorage.removeItem('adatlensa_session_v1');
+      updateAuthUI();
+      switchView('home');
+    }
+
+    // ==================== INITIAL SEED DATA WITH AUTHENTIC ACEH PHOTOS ====================
+    const DEFAULT_DATA = {
+      busana: [
+        {
+          id: 'BUS-01', nama: 'Daro Baro Sulam Kasab Emas', asalBudaya: 'Aceh Pesisir',
+          kategori: 'Busana Adat Aceh', wilayah: 'Banda Aceh',
+          deskripsi: 'Setelan busana adat perempuan Aceh warna hijau zamrud & hitam dengan sulaman benang emas motif Pucuk Rebung serta kain songket.',
+          filosofiMotif: 'Motif Pucuk Rebung melambangkan pertumbuhan, harapan, dan keteguhan memegang nilai syariat.',
+          warnaUtama: '#064e3b',
+          imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Pakaian_Adat_Aceh_Wanita.jpg?width=640',
+          stokPerUkuran: { S: 2, M: 3, L: 2, XL: 1 },
+          hargaSewa: 150000,
+          tanggalTerbooking: ['2026-11-30'],
+          mitraUMKM: 'Sanggar Meuligoe Busana (Simulasi)', kontakWA: '6281200001101',
+          reviews: [
+            { user: 'Nadia P.', rating: 5, comment: 'Sulaman kasab emasnya mewah dan bersih, ruang ganti Muslimahnya sangat nyaman!', date: '18 Nov 2026' },
+            { user: 'Siti Rahmah', rating: 4.8, comment: 'Ukuran M pas di badan, admin sangat membantu memasangkan sunting.', date: '21 Nov 2026' }
+          ]
+        },
+        {
+          id: 'BUS-02', nama: 'Linto Baro Teluk Belanga Hitam Emas', asalBudaya: 'Aceh Pesisir',
+          kategori: 'Busana Adat Aceh', wilayah: 'Banda Aceh',
+          deskripsi: 'Busana adat pria Aceh lengkap dengan baju Meukasah, celana Cekak Musang, kain sarung songket, dan Kupiah Meukeutop.',
+          filosofiMotif: 'Warna hitam melambangkan kewibawaan pemimpin yang mengayomi masyarakat.',
+          warnaUtama: '#1e293b',
+          imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/LINTO_PHON.jpg?width=640',
+          stokPerUkuran: { S: 0, M: 2, L: 3, XL: 2 },
+          hargaSewa: 145000,
+          tanggalTerbooking: [],
+          mitraUMKM: 'UMKM Atjeh Heritage Attire (Simulasi)', kontakWA: '6281200001102',
+          reviews: [
+            { user: 'Rizky F.', rating: 4.9, comment: 'Kupiah Meukeutop gagah dan kain songketnya tidak gerah dipakai foto pagi.', date: '19 Nov 2026' }
+          ]
+        },
+        {
+          id: 'BUS-03', nama: 'Baju Kerawang Gayo Klasik Putri', asalBudaya: 'Dataran Tinggi Gayo',
+          kategori: 'Busana Kerawang Gayo', wilayah: 'Aceh Tengah',
+          deskripsi: 'Busana adat perempuan Gayo berbahan dasar hitam dengan bordir motif Emun Berangkat dan Upuh Ulen-Ulen.',
+          filosofiMotif: 'Emun Berangkat menggambarkan kebersamaan masyarakat Gayo dalam musyawarah.',
+          warnaUtama: '#991b1b',
+          imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Baju_Kerawang_Gayo.jpg?width=640',
+          stokPerUkuran: { S: 2, M: 2, L: 2, XL: 0 },
+          hargaSewa: 160000,
+          tanggalTerbooking: [],
+          mitraUMKM: 'Galeri Kerawang Takengon (Simulasi)', kontakWA: '6281200001103',
+          reviews: [
+            { user: 'Aulia Z.', rating: 5, comment: 'Kontras warna Kerawang Gayo sangat cantik berlatar Danau Laut Tawar!', date: '20 Nov 2026' }
+          ]
+        },
+        {
+          id: 'BUS-04', nama: 'Busana Aman Mayak Kerawang Gayo', asalBudaya: 'Dataran Tinggi Gayo',
+          kategori: 'Busana Kerawang Gayo', wilayah: 'Bener Meriah',
+          deskripsi: 'Setelan pria adat Gayo lengkap dengan ikat kepala Bulang Teleng bermotif Kerawang dan sarung tenun.',
+          filosofiMotif: 'Puter Tali melambangkan ikatan persaudaraan yang kokoh di dataran tinggi Gayo.',
+          warnaUtama: '#b45309',
+          imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Kerawang_Gayo.png?width=640',
+          stokPerUkuran: { S: 0, M: 2, L: 2, XL: 1 },
+          hargaSewa: 155000,
+          tanggalTerbooking: [],
+          mitraUMKM: 'UMKM Tenun Redelong (Simulasi)', kontakWA: '6281200001104',
+          reviews: []
+        },
+        {
+          id: 'BUS-05', nama: 'Daro Baro Marun Pantai Lampuuk', asalBudaya: 'Aceh Besar',
+          kategori: 'Busana Adat Aceh', wilayah: 'Aceh Besar',
+          deskripsi: 'Busana adat Aceh nuansa merah marun dan emas yang ringan dan nyaman untuk sesi foto luar ruang di pesisir.',
+          filosofiMotif: 'Motif Bungong Jeumpa melambangkan keindahan dan keramahan tanah Aceh.',
+          warnaUtama: '#881337',
+          imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Penari_Saman_Aceh.jpg?width=640',
+          stokPerUkuran: { S: 1, M: 2, L: 2, XL: 1 },
+          hargaSewa: 140000,
+          tanggalTerbooking: [],
+          mitraUMKM: 'Rumoh Adat Lhoknga (Simulasi)', kontakWA: '6281200001105',
+          reviews: [
+            { user: 'Dina M.', rating: 4.9, comment: 'Bahan adem untuk foto golden hour di Pantai Lampuuk.', date: '22 Nov 2026' }
+          ]
+        },
+        {
+          id: 'BUS-06', nama: 'Mahkota Sunting & Patham Dhoe Set', asalBudaya: 'Aceh Pesisir',
+          kategori: 'Aksesori Kepala', wilayah: 'Banda Aceh',
+          deskripsi: 'Set mahkota pengantin/wisata Daro Baro berlapis sepuh emas ringan beserta tusuk sanggul hijab-friendly.',
+          filosofiMotif: 'Mahkota melambangkan kemuliaan akhlak dan kehormatan perempuan Aceh.',
+          warnaUtama: '#d97706',
+          imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Ragam_hias_pinto_aceh_khas_Aceh.png?width=640',
+          stokPerUkuran: { S: 3, M: 3, L: 3, XL: 3 },
+          hargaSewa: 65000,
+          tanggalTerbooking: [],
+          mitraUMKM: 'Perajin Perak & Emas Keutapang (Simulasi)', kontakWA: '6281200001106',
+          reviews: []
+        },
+        {
+          id: 'BUS-07', nama: 'Kupiah Meukeutop & Rencong Hias', asalBudaya: 'Aceh Pesisir',
+          kategori: 'Aksesori Kepala', wilayah: 'Sabang',
+          deskripsi: 'Penutup kepala khas pahlawan Aceh lima warna dilengkapi replika rencong hias kuningan untuk properti foto wisata.',
+          filosofiMotif: 'Lima warna Kupiah Meukeutop melambangkan rukun Islam dan struktur adat Aceh.',
+          warnaUtama: '#047857',
+          imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Masjid_Kupiah_Meukeutop_atau_masjid_Teuku_Umar.jpg?width=640',
+          stokPerUkuran: { S: 0, M: 2, L: 2, XL: 2 },
+          hargaSewa: 60000,
+          tanggalTerbooking: [],
+          mitraUMKM: 'Kriya Sabang Heritage (Simulasi)', kontakWA: '6281200001107',
+          reviews: []
+        },
+        {
+          id: 'BUS-08', nama: 'Busana Adat Pesisir Sabang Biru Laut', asalBudaya: 'Aceh Pesisir',
+          kategori: 'Busana Adat Aceh', wilayah: 'Sabang',
+          deskripsi: 'Variasi busana adat Aceh berpadu selendang songket biru pirus yang serasi dengan latar bahari Pulau Weh.',
+          filosofiMotif: 'Motif Awan Meucanek melambangkan keluwesan dan harmoni dengan alam bahari.',
+          warnaUtama: '#0d9488',
+          imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Tari_Saman_The_Dance_of_Thousand_Hand.jpg?width=640',
+          stokPerUkuran: { S: 2, M: 2, L: 1, XL: 0 },
+          hargaSewa: 150000,
+          tanggalTerbooking: [],
+          mitraUMKM: 'Sanggar Aneuk Laot Sabang (Simulasi)', kontakWA: '6281200001108',
+          reviews: []
+        }
+      ],
+      spots: [
+        {
+          id: 'SPOT-01', nama: 'Taman Sari Gunongan', wilayah: 'Banda Aceh', kategoriSpot: 'Sejarah & Budaya',
+          deskripsi: 'Bangunan cagar budaya bersejarah peninggalan Kesultanan Aceh dengan arsitektur putih berundak yang ikonik untuk foto busana adat.',
+          alamat: 'Jl. Teuku Umar, Sukaramai, Baiturrahman, Banda Aceh',
+          mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Taman+Sari+Gunongan+Banda+Aceh',
+          imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Gunongan_Aceh_Sultanate,_diambil_5_May_2026.jpg?width=640',
+          estimasiTiket: 5000, fasilitasIbadah: 'Mushalla & tempat wudu bersih berjarak 40 meter di sisi taman.',
+          fasilitasRamahMuslim: 'Tersedia bilik ganti portabel mitra UMKM & area teduh ramah keluarga.',
+          waktuFotoTerbaik: '07.30 – 09.30 WIB & 16.30 – 18.00 WIB'
+        },
+        {
+          id: 'SPOT-02', nama: 'Pantai Lampuuk & Tebing Pesisir', wilayah: 'Aceh Besar', kategoriSpot: 'Bahari & Alam',
+          deskripsi: 'Hamparan pasir putih dan latar perbukitan hijau yang memukau untuk pemotretan bertema adat pesisir saat matahari terbenam.',
+          alamat: 'Meunasah Masjid, Lhoknga, Kabupaten Aceh Besar',
+          mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Pantai+Lampuuk+Aceh+Besar',
+          imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Pantai_Lampuuk_Aceh.jpg?width=640',
+          estimasiTiket: 10000, fasilitasIbadah: 'Mushalla wisata di area parkir utama dengan tempat wudu terpisah.',
+          fasilitasRamahMuslim: 'Ruang ganti tertutup khusus Muslimah di pondok mitra UMKM pesisir.',
+          waktuFotoTerbaik: '16.45 – 18.15 WIB (Golden Hour)'
+        },
+        {
+          id: 'SPOT-03', nama: 'Benteng Indra Patra', wilayah: 'Aceh Besar', kategoriSpot: 'Sejarah & Bahari',
+          deskripsi: 'Benteng batu bersejarah di tepi selat Malaka yang menghadirkan tekstur dinding klasik kontras dengan sulaman benang emas Aceh.',
+          alamat: 'Ladong, Kecamatan Mesjid Raya, Kabupaten Aceh Besar',
+          mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Benteng+Indra+Patra+Aceh+Besar',
+          imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Indrapatra_Fortress_building.jpg?width=640',
+          estimasiTiket: 5000, fasilitasIbadah: 'Masjid Gampong Ladong berjarak 200 meter dari gerbang benteng.',
+          fasilitasRamahMuslim: 'Tenda ganti lipat disediakan oleh kru studio saat sesi foto.',
+          waktuFotoTerbaik: '08.00 – 10.00 WIB'
+        },
+        {
+          id: 'SPOT-04', nama: 'Dermaga & Tepian Danau Laut Tawar', wilayah: 'Aceh Tengah', kategoriSpot: 'Alam Dataran Tinggi',
+          deskripsi: 'Panorama danau dataran tinggi dikelilingi pegunungan Gayo yang sejuk, sangat serasi dengan busana adat Kerawang Gayo.',
+          alamat: 'Mendala / One-One, Lut Tawar, Takengon, Aceh Tengah',
+          mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Danau+Laut+Tawar+Takengon',
+          imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Danau_Laut_Tawar_Takengon.jpg?width=640',
+          estimasiTiket: 10000, fasilitasIbadah: 'Mushalla apung & tempat wudu di kawasan dermaga wisata.',
+          fasilitasRamahMuslim: 'Ruang ganti tertutup di kafe mitra & kedai kopi halal bersertifikat.',
+          waktuFotoTerbaik: '07.30 – 09.30 WIB (Kabut Pagi Danau)'
+        },
+        {
+          id: 'SPOT-05', nama: 'Tugu Kilometer Nol Indonesia', wilayah: 'Sabang', kategoriSpot: 'Bahari & Ikonik',
+          deskripsi: 'Monumen ikonik ujung barat Nusantara menghadap Samudra Hindia untuk foto kenangan berbalut busana adat Aceh.',
+          alamat: 'Iboih, Sukakarya, Kota Sabang',
+          mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Kilometer+Nol+Sabang',
+          imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Tugu_KM_0_Sabang.png?width=640',
+          estimasiTiket: 10000, fasilitasIbadah: 'Mushalla & fasilitas sanitasi bersih di area plaza monumen.',
+          fasilitasRamahMuslim: 'Tersedia ruang ganti khusus wanita di gerai suvenir UMKM sekitar monumen.',
+          waktuFotoTerbaik: '16.30 – 18.00 WIB'
+        },
+        {
+          id: 'SPOT-06', nama: 'Kebun Kopi & Agrowisata Redelong', wilayah: 'Bener Meriah', kategoriSpot: 'Agrowisata & Budaya',
+          deskripsi: 'Lanskap kebun kopi Arabika Gayo berlatar Gunung Burni Telong untuk sesi foto budaya dan edukasi panen kopi.',
+          alamat: 'Bukit, Simpang Tiga Redelong, Kabupaten Bener Meriah',
+          mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Redelong+Bener+Meriah+Aceh',
+          imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Takengon.jpg?width=640',
+          estimasiTiket: 10000, fasilitasIbadah: 'Mushalla kayu & tempat wudu air pegunungan di area agrowisata.',
+          fasilitasRamahMuslim: 'Ruang rias tertutup Muslimah & sajian kopi Gayo halal.',
+          waktuFotoTerbaik: '08.00 – 10.00 WIB'
+        }
+      ],
+      photoPackages: [
+        {
+          id: 'PKG-01', namaPaket: 'Sesi Foto Solo Heritage (1 Jam)', namaStudioUMKM: 'LensaSerambi Studio (Simulasi)',
+          wilayah: 'Banda Aceh', durasiJam: 1, jumlahFotoEdit: 15, hargaPaket: 200000,
+          termasukMUASyari: false, statusHalalProdukMUA: 'Tidak termasuk MUA (Hanya Fotografer)',
+          portfolioStyle: 'Tone Editorial Warm & Arsitektur Klasik (35mm f/1.4)',
+          imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Gunongan_Aceh_Sultanate,_diambil_5_May_2026.jpg?width=640',
+          deskripsi: '1 jam sesi foto bersama fotografer lokal, 15 foto edit tone editorial + semua file asli via Google Drive.',
+          kontakWA: '6281200002201'
+        },
+        {
+          id: 'PKG-02', namaPaket: 'Paket Pasangan Adat + MUA Syar’i (2 Jam)', namaStudioUMKM: 'CutKakak MUA & Photo (Simulasi)',
+          wilayah: 'Banda Aceh', durasiJam: 2, jumlahFotoEdit: 30, hargaPaket: 420000,
+          termasukMUASyari: true, statusHalalProdukMUA: 'Kosmetik Tersertifikasi Halal BPJPH (Terverifikasi)',
+          portfolioStyle: 'Tone Soft Pastel & Golden Hour Portrait + Hijab Styling Syar’i',
+          imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Pakaian_Adat_Aceh_Wanita.jpg?width=640',
+          deskripsi: '2 jam sesi foto di 1–2 spot berdekatan, rias wajah & penataan hijab syar’i tanpa cukur alis, 30 foto edit.',
+          kontakWA: '6281200002202'
+        },
+        {
+          id: 'PKG-03', namaPaket: 'Gayo Highland Couple & MUA (2 Jam)', namaStudioUMKM: 'Takengon Frame UMKM (Simulasi)',
+          wilayah: 'Aceh Tengah', durasiJam: 2, jumlahFotoEdit: 30, hargaPaket: 450000,
+          termasukMUASyari: true, statusHalalProdukMUA: 'Kosmetik Halal BPJPH & Self-Declare Pendamping',
+          portfolioStyle: 'Tone Moody Highland & Misty Lake Editorial',
+          imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Danau_Laut_Tawar_Takengon.jpg?width=640',
+          deskripsi: 'Dokumentasi 2 jam di tepian Danau Laut Tawar atau kebun kopi, termasuk penataan Kerawang Gayo & hijab syar’i.',
+          kontakWA: '6281200002203'
+        },
+        {
+          id: 'PKG-04', namaPaket: 'Sabang Bahari Golden Hour (1,5 Jam)', namaStudioUMKM: 'WehIsland Click (Simulasi)',
+          wilayah: 'Sabang', durasiJam: 2, jumlahFotoEdit: 25, hargaPaket: 380000,
+          termasukMUASyari: true, statusHalalProdukMUA: 'Fasilitas Ramah Muslim (Kosmetik dalam proses verifikasi)',
+          portfolioStyle: 'Tone Vibrant Turquoise Ocean & Sunset Silhouette',
+          imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Tugu_KM_0_Sabang.png?width=640',
+          deskripsi: 'Sesi foto sore di Kilometer Nol atau Pantai Iboih lengkap dengan kru bantu pemasangan aksesori adat.',
+          kontakWA: '6281200002204'
+        }
+      ],
+      bundlings: [
+        {
+          id: 'BND-01', nama: 'Paket Solo Cultural Express', tipeWisatawan: 'Solo', wilayah: 'Banda Aceh',
+          durasiJam: 1, daftarItem: ['1x Sewa Daro Baro / Linto Baro', '1x Aksesori Kepala', 'Fotografer 1 Jam di Gunongan'],
+          estimasiBiaya: 340000, deskripsi: 'Cocok untuk solo traveler yang ingin foto berbusana adat autentik dalam waktu singkat.'
+        },
+        {
+          id: 'BND-02', nama: 'Paket Romantis Pesisir Lampuuk', tipeWisatawan: 'Pasangan', wilayah: 'Aceh Besar',
+          durasiJam: 2, daftarItem: ['1x Daro Baro + 1x Linto Baro', 'MUA Syar’i Halal BPJPH', 'Fotografer 2 Jam Golden Hour'],
+          estimasiBiaya: 620000, deskripsi: 'Paket lengkap pasangan di Pantai Lampuuk termasuk ruang ganti tertutup Muslimah.'
+        },
+        {
+          id: 'BND-03', nama: 'Paket Eksplorasi Kerawang Gayo', tipeWisatawan: 'Pasangan', wilayah: 'Aceh Tengah',
+          durasiJam: 2, daftarItem: ['Sepasang Busana Kerawang Gayo', 'MUA & Hijab Stylist', 'Fotografer 2 Jam Danau Laut Tawar'],
+          estimasiBiaya: 680000, deskripsi: 'Pengalaman foto adat Gayo berlatar pegunungan dan danau sejuk Takengon.'
+        },
+        {
+          id: 'BND-04', nama: 'Paket Keluarga Besar Serambi Mekkah', tipeWisatawan: 'Keluarga', wilayah: 'Banda Aceh',
+          durasiJam: 2, daftarItem: ['4x Busana Adat Aceh (Dewasa/Anak)', '2x MUA Syar’i', 'Fotografer 2 Jam + 40 Foto Edit'],
+          estimasiBiaya: 1050000, deskripsi: 'Paket hemat untuk keluarga yang berlibur ke Banda Aceh ingin foto bersama.'
+        }
+      ],
+      bookings: [
+        {
+          id: 'BK-01', kodeNota: '#ADL-1024',
+          userEmail: 'wisatawan@adatlensa.id',
+          namaPemesan: 'Teuku Gilang (Wisatawan)',
+          tanggalKunjungan: '2026-11-26',
+          slotWaktu: '16:30 - 18:00 WIB (Golden Hour)',
+          ukuranBusana: 'M',
+          pilihanMixMatch: 'Daro Baro Sulam Kasab Emas + Sunting Aceh',
+          idBusana: 'BUS-01', idSpotFoto: 'SPOT-01', idPaketFotografer: 'PKG-02',
+          jumlahPeserta: 1,
+          totalAnggaran: 575000,
+          dpAmount: 172500,
+          paymentStatus: 'DP Lunas (QRIS Simulasi)',
+          statusBooking: 'Busana Siap & Terjadwal',
+          reviewed: false
+        }
+      ],
+      favorites: []
+    };
+
+    // ==================== STATE MANAGEMENT ====================
+    let appState = JSON.parse(localStorage.getItem('adatlensa_aceh_v3')) || JSON.parse(JSON.stringify(DEFAULT_DATA));
+    let currentLang = localStorage.getItem('adatlensa_lang') || 'id';
+
+    function saveState() {
+      localStorage.setItem('adatlensa_aceh_v3', JSON.stringify(appState));
+      updateWishlistCounter();
+    }
+
+    function resetDemoData() {
+      if (confirm('Kembalikan seluruh data katalog, foto, stok ukuran, jadwal booking, dan ulasan ke data simulasi awal?')) {
+        appState = JSON.parse(JSON.stringify(DEFAULT_DATA));
+        usersList = JSON.parse(JSON.stringify(DEFAULT_USERS));
+        saveState();
+        saveAuthStorage();
+        initAll();
+        alert('Data simulasi demo berhasil di-reset.');
+      }
+    }
+
+    function formatRp(num) {
+      return 'Rp ' + Number(num || 0).toLocaleString('id-ID');
+    }
+
+    function getAvgRating(busanaObj) {
+      if (!busanaObj.reviews || busanaObj.reviews.length === 0) return '4.9';
+      const sum = busanaObj.reviews.reduce((a, b) => a + Number(b.rating), 0);
+      return (sum / busanaObj.reviews.length).toFixed(1);
+    }
+
+    // ==================== GRANULAR STOCK CHECKER ====================
+    function getAvailableStockForSlot(busana, sizeVal, dateVal, slotVal, excludeBookingId = null) {
+      if (!busana || !busana.stokPerUkuran) return 0;
+      if (busana.tanggalTerbooking && busana.tanggalTerbooking.includes(dateVal)) {
+        return 0;
+      }
+      const baseStock = Number(busana.stokPerUkuran[sizeVal] || 0);
+      const usedStock = appState.bookings
+        .filter(bk =>
+          bk.id !== excludeBookingId &&
+          bk.idBusana === busana.id &&
+          bk.ukuranBusana === sizeVal &&
+          bk.tanggalKunjungan === dateVal &&
+          bk.slotWaktu === slotVal &&
+          bk.statusBooking !== 'Dibatalkan'
+        )
+        .reduce((sum, bk) => sum + Number(bk.jumlahPeserta || 1), 0);
+
+      return Math.max(0, baseStock - usedStock);
+    }
+
+    // ==================== BILINGUAL DICTIONARY ====================
+    const I18N = {
+      id: {
+        tagline: 'Halal Cultural Tourism & UMKM',
+        nav_home: 'Beranda',
+        nav_catalog: 'Katalog & Spot',
+        nav_studio: 'Studio Mix & Match',
+        nav_booking: 'Booking & Kalkulator',
+        nav_mybookings: 'Pesanan Saya',
+        nav_admin: 'Admin CRUD',
+        btn_login_nav: '🔐 Masuk / Daftar',
+        auth_heading: 'Masuk ke Akun AdatLensa Aceh',
+        auth_sub: 'Kelola riwayat pesanan sesi foto wisata atau dashboard katalog mitra UMKM.',
+        tab_login: 'Masuk (Login)',
+        tab_register: 'Daftar Akun Baru',
+        lbl_email: 'Email',
+        lbl_pass: 'Kata Sandi (Password)',
+        btn_submit_login: '🔓 Masuk Sekarang',
+        hero_badge: '✨ Wisata Budaya Halal & Pemberdayaan UMKM Aceh',
+        hero_title: 'Abadikan Momen Berbalut Busana Adat Aceh & Gayo di Spot Ikonik',
+        hero_desc: 'Padukan busana adat UMKM lokal secara interaktif, cek ketersediaan stok ukuran per slot sesi, bayar DP via QRIS simulasi, dan pesan sesi foto 1–2 jam lengkap dengan MUA Syar\'i.',
+        btn_try_studio: '🎨 Coba Mix & Match Busana',
+        btn_explore_catalog: 'Jelajahi Katalog & Spot',
+        philo_title: 'Filosofi Busana Adat Pesisir & Dataran Tinggi Gayo',
+        philo_sub: 'Setiap helai benang emas dan motif ukiran menyimpan nilai adat, syariat, dan kearifan lokal masyarakat Aceh.',
+        map_title: 'Peta Ilustratif Sebaran UMKM Busana & Spot Foto Aceh',
+        map_sub: 'Klik titik wilayah pada peta geografis Aceh di bawah untuk melihat gerai UMKM, spot foto ikonik, dan rute Google Maps.',
+        rec_title: 'Rekomendasi Paket Wisata Foto Adat (Rule-Based)',
+        rec_sub: 'Pilih tipe wisatawan, wilayah tujuan, dan perkiraan anggaran untuk menemukan kombinasi paket terbaik.',
+        cat_title: 'Katalog Busana Adat, Portofolio Fotografer & Spot Ikonik',
+        book_title: 'Cek Stok Per Ukuran & Slot, Panduan Ukuran & Kalkulator Sesi',
+        book_form_title: 'Formulir Pemesanan & Cek Stok Sesi',
+        lbl_booker_name: 'Nama Pemesan',
+        lbl_choose_attire: 'Pilih Koleksi Busana Adat',
+        lbl_visit_date: 'Tanggal Kunjungan',
+        lbl_size: 'Ukuran Busana',
+        lbl_slot: 'Slot Waktu Sesi Foto',
+        lbl_pax: 'Jumlah Stel / Org',
+        lbl_spot: 'Pilih Spot Foto Ikonik',
+        lbl_photo_pkg: 'Paket Fotografer & MUA Syar\'i (1–2 Jam)',
+        lbl_notes: 'Catatan Mix & Match / Kebutuhan Hijab Syar\'i',
+        myb_title: 'Pesanan Saya — Pembayaran DP QRIS, Reschedule Cuaca & Ulasan',
+        myb_sub: 'Kelola jadwal sesi foto Anda, selesaikan pembayaran DP simulasi, ajukan reschedule bila hujan, atau beri ulasan.'
+      },
+      en: {
+        tagline: 'Halal Cultural Tourism & Local MSMEs',
+        nav_home: 'Home',
+        nav_catalog: 'Catalog & Spots',
+        nav_studio: 'Mix & Match Studio',
+        nav_booking: 'Booking & Calculator',
+        nav_mybookings: 'My Bookings',
+        nav_admin: 'Admin CRUD',
+        btn_login_nav: '🔐 Login / Register',
+        auth_heading: 'Sign In to AdatLensa Aceh',
+        auth_sub: 'Manage your cultural photo session bookings or local MSME catalog dashboard.',
+        tab_login: 'Sign In',
+        tab_register: 'Create Account',
+        lbl_email: 'Email',
+        lbl_pass: 'Password',
+        btn_submit_login: '🔓 Sign In Now',
+        hero_badge: '✨ Halal Cultural Tourism & Aceh MSME Empowerment',
+        hero_title: 'Capture Iconic Moments in Traditional Aceh & Gayo Attire',
+        hero_desc: 'Mix and match local MSME traditional outfits interactively, check size stock per session slot, pay 30% DP via simulated QRIS, and book 1–2 hour photo sessions with Syar\'i MUA.',
+        btn_try_studio: '🎨 Try Outfit Mix & Match',
+        btn_explore_catalog: 'Explore Catalog & Spots',
+        philo_title: 'Philosophy of Coastal Aceh & Gayo Highland Attire',
+        philo_sub: 'Every gold thread and carved motif preserves cultural heritage, Islamic values, and local wisdom of Aceh.',
+        map_title: 'Illustrative Map of Aceh MSME Attire & Photo Spots',
+        map_sub: 'Click any region pin on the geographic map of Aceh below to explore local MSMEs, iconic photo spots, and Google Maps directions.',
+        rec_title: 'Traditional Photo Package Recommender (Rule-Based)',
+        rec_sub: 'Select traveler type, destination region, and budget range to find the best matching package.',
+        cat_title: 'Traditional Attire, Photographer Portfolios & Iconic Spots',
+        book_title: 'Check Stock by Size & Slot, Size Chart & Session Calculator',
+        book_form_title: 'Booking Form & Session Stock Checker',
+        lbl_booker_name: 'Booker Full Name',
+        lbl_choose_attire: 'Select Traditional Attire',
+        lbl_visit_date: 'Visit Date',
+        lbl_size: 'Attire Size',
+        lbl_slot: 'Photo Session Time Slot',
+        lbl_pax: 'Quantity / Pax',
+        lbl_spot: 'Select Iconic Photo Spot',
+        lbl_photo_pkg: 'Photographer & Syar\'i MUA Package (1–2 Hrs)',
+        lbl_notes: 'Mix & Match Notes / Syar\'i Hijab Request',
+        myb_title: 'My Bookings — QRIS DP Payment, Weather Reschedule & Reviews',
+        myb_sub: 'Manage your photo session schedule, pay simulated 30% DP, reschedule for rain, or leave a review.'
+      }
+    };
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'id' ? 'en' : 'id';
+      localStorage.setItem('adatlensa_lang', currentLang);
+      applyLanguage();
+    }
+
+    function applyLanguage() {
+      const dict = I18N[currentLang];
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) el.textContent = dict[key];
+      });
+      document.getElementById('langToggleBtn').textContent = currentLang === 'id' ? '🌐 ID / EN' : '🌐 EN / ID';
+      updateWishlistCounter();
+      updateAuthUI();
+    }
+
+    // ==================== NAVIGATION WITH ROLE GUARD ====================
+    function switchView(viewName) {
+      if (viewName === 'admin' && (!currentUser || currentUser.role !== 'admin')) {
+        document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById('view-login').classList.add('active');
+        document.getElementById('authGateNotice').innerHTML = `
+          <div class="alert alert-info" style="margin-bottom:14px;">
+            🛡️ Akses <strong>Dashboard Admin UMKM</strong> memerlukan akun dengan peran <strong>Admin / Mitra UMKM</strong>. Silakan klik tombol <strong>Demo Admin UMKM</strong> di bawah untuk masuk.
+          </div>
+        `;
+        return;
+      }
+
+      document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('view-' + viewName).classList.add('active');
+      const activeBtn = document.querySelector(`.nav-btn[data-view="${viewName}"]`);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      if (viewName === 'wishlist') renderWishlist();
+      if (viewName === 'mybookings') renderMyBookings();
+      if (viewName === 'admin') renderAdminTables();
+      if (viewName === 'booking') {
+        populateBookingSelects();
+        checkAvailabilityAndCalc();
+      }
+    }
+
+    // ==================== INTERACTIVE GEOGRAPHIC MAP LOGIC ====================
+    function selectMapRegion(regionName) {
+      document.querySelectorAll('.map-pill-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-region') === regionName);
+      });
+
+      document.querySelectorAll('.map-pin').forEach(pin => {
+        const ring = pin.querySelector('.pin-ring');
+        const core = pin.querySelector('.pin-core');
+        const isMatch = pin.id === 'pin-' + regionName;
+        if (ring) {
+          ring.classList.toggle('pin-pulse', isMatch);
+          ring.setAttribute('opacity', isMatch ? '0.6' : '0');
+        }
+        if (core) {
+          core.setAttribute('fill', isMatch ? '#f59e0b' : '#047857');
+        }
+      });
+
+      const spots = appState.spots.filter(s => s.wilayah === regionName);
+      const busanaList = appState.busana.filter(b => b.wilayah === regionName);
+      const box = document.getElementById('mapDetailBox');
+
+      const spotLinks = spots.map(s => `
+        <div style="padding:10px; background:#f8fafc; border-radius:8px; border:1px solid var(--border); margin-bottom:8px;">
+          <div style="font-weight:700; color:var(--emerald-dark);">${s.nama}</div>
+          <div style="font-size:0.79rem; color:var(--text-muted); margin:2px 0;">🕌 ${s.fasilitasIbadah}</div>
+          <div style="font-size:0.79rem; color:var(--emerald); margin-bottom:4px;">🧕 ${s.fasilitasRamahMuslim}</div>
+          <a href="${s.mapsUrl}" target="_blank" rel="noopener" style="font-size:0.8rem; color:var(--turquoise); font-weight:700; text-decoration:none;">📍 Buka Lokasi di Google Maps ↗</a>
+        </div>
+      `).join('');
+
+      box.innerHTML = `
+        <div>
+          <span class="badge badge-region">Wilayah Terpilih: ${regionName}</span>
+          <h3 style="margin:6px 0; color:var(--emerald-dark);">${busanaList.length} Koleksi Busana UMKM • ${spots.length} Spot Foto Ikonik</h3>
+          <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:10px;">
+            Mitra aktif: <strong>${busanaList.map(b => b.mitraUMKM.replace(' (Simulasi)', '')).join(', ') || 'UMKM Mitra Aceh'}</strong>.
+          </p>
+          ${spotLinks || '<p class="text-muted">Belum ada spot terdaftar di wilayah ini.</p>'}
+        </div>
+        <button class="btn btn-emerald btn-sm" onclick="filterCatalogByRegion('${regionName}')">Lihat Semua Koleksi di ${regionName} →</button>
+      `;
+    }
+
+    function filterCatalogByRegion(regionName) {
+      document.getElementById('filterRegion').value = regionName;
+      switchView('catalog');
+      renderCatalog();
+    }
+
+    // ==================== RULE-BASED RECOMMENDATIONS ====================
+    function renderRecommendations() {
+      const type = document.getElementById('recType').value;
+      const region = document.getElementById('recRegion').value;
+      const maxBudget = Number(document.getElementById('recBudget').value);
+
+      const filtered = appState.bundlings.filter(b => {
+        const matchType = type === 'Semua' || b.tipeWisatawan === type;
+        const matchReg = region === 'Semua' || b.wilayah === region;
+        const matchBud = b.estimasiBiaya <= maxBudget;
+        return matchType && matchReg && matchBud;
+      });
+
+      const container = document.getElementById('recommendationResults');
+      if (filtered.length === 0) {
+        container.innerHTML = `<div class="alert alert-info" style="grid-column:1/-1;">Tidak ada paket bundling yang cocok dengan kombinasi filter anggaran tersebut.</div>`;
+        return;
+      }
+
+      container.innerHTML = filtered.map(b => `
+        <div class="card">
+          <div>
+            <div class="badge-row">
+              <span class="badge badge-region">${b.wilayah}</span>
+              <span class="badge badge-cat">Tipe: ${b.tipeWisatawan}</span>
+              <span class="badge badge-muslim">⏱ ${b.durasiJam} Jam</span>
+            </div>
+            <h3 style="color:var(--emerald-dark); margin-bottom:6px;">${b.nama}</h3>
+            <p style="font-size:0.86rem; color:var(--text-muted); margin-bottom:10px;">${b.deskripsi}</p>
+            <ul style="font-size:0.82rem; padding-left:18px; color:var(--text-main); margin-bottom:14px;">
+              ${b.daftarItem.map(i => `<li>${i}</li>`).join('')}
+            </ul>
+          </div>
+          <div>
+            <div class="price-tag">${formatRp(b.estimasiBiaya)} <span class="sim-note">/ paket (simulasi)</span></div>
+            <button class="btn btn-emerald btn-sm" style="width:100%; margin-top:10px;" onclick="switchView('booking')">Pesan Paket Ini</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ==================== CATALOG & FILTERING WITH FULL PHOTO CARDS ====================
+    function renderCatalog() {
+      const q = document.getElementById('filterSearch').value.toLowerCase();
+      const reg = document.getElementById('filterRegion').value;
+      const cat = document.getElementById('filterCategory').value;
+      const size = document.getElementById('filterSize').value;
+      const sort = document.getElementById('filterSort').value;
+
+      let unified = [];
+
+      appState.busana.forEach(b => {
+        const availableSizes = Object.entries(b.stokPerUkuran || {})
+          .filter(([, qty]) => qty > 0)
+          .map(([sz, qty]) => `${sz} (${qty})`);
+        const sizeKeys = Object.entries(b.stokPerUkuran || {})
+          .filter(([, qty]) => qty > 0)
+          .map(([sz]) => sz);
+        const avgR = Number(getAvgRating(b));
+        const revCount = (b.reviews || []).length;
+        const latestRev = revCount > 0 ? `"${b.reviews[0].comment}" — ${b.reviews[0].user}` : '';
+
+        unified.push({
+          uid: b.id, type: 'busana', title: b.nama, region: b.wilayah, category: b.kategori,
+          price: b.hargaSewa, sizes: sizeKeys, desc: b.deskripsi,
+          rating: avgR, revCount, latestRev,
+          extra1: `✨ Filosofi: ${b.filosofiMotif}`,
+          extra2: `🏪 Mitra: ${b.mitraUMKM} | Stok: ${availableSizes.join(', ') || 'Habis'}`,
+          badgeHalal: 'Fasilitas Ramah Muslim (Ruang Ganti Tertutup)',
+          halalOk: true, color: b.warnaUtama, imageUrl: b.imageUrl
+        });
+      });
+
+      appState.photoPackages.forEach(p => {
+        unified.push({
+          uid: p.id, type: 'photo', title: p.namaPaket, region: p.wilayah, category: 'Paket Fotografer & MUA',
+          price: p.hargaPaket, sizes: ['S', 'M', 'L', 'XL'], desc: p.deskripsi,
+          rating: 4.9, revCount: 12, latestRev: '',
+          extra1: `📸 Portofolio: ${p.portfolioStyle || 'Tone Editorial'}`,
+          extra2: `💄 ${p.statusHalalProdukMUA}`,
+          badgeHalal: p.statusHalalProdukMUA.includes('BPJPH') ? 'Sertifikasi Halal BPJPH (Kosmetik MUA)' : 'Layanan Ramah Muslim (Non-Sertifikat)',
+          halalOk: p.statusHalalProdukMUA.includes('BPJPH'), color: '#0d9488', imageUrl: p.imageUrl || ''
+        });
+      });
+
+      appState.spots.forEach(s => {
+        unified.push({
+          uid: s.id, type: 'spot', title: s.nama, region: s.wilayah, category: 'Spot Foto Ikonik',
+          price: s.estimasiTiket, sizes: ['S', 'M', 'L', 'XL'], desc: s.deskripsi,
+          rating: 4.9, revCount: 18, latestRev: '',
+          extra1: `🕌 Ibadah: ${s.fasilitasIbadah}`,
+          extra2: `🧕 Ramah Muslim: ${s.fasilitasRamahMuslim}`,
+          badgeHalal: 'Fasilitas Ramah Muslim Terverifikasi',
+          halalOk: true, mapsUrl: s.mapsUrl, color: '#047857', imageUrl: s.imageUrl || ''
+        });
+      });
+
+      let filtered = unified.filter(item => {
+        const matchQ = item.title.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q) || item.region.toLowerCase().includes(q);
+        const matchReg = reg === 'Semua' || item.region === reg;
+        const matchCat = cat === 'Semua' || item.category === cat;
+        const matchSize = size === 'Semua' || (item.sizes && item.sizes.includes(size));
+        return matchQ && matchReg && matchCat && matchSize;
+      });
+
+      if (sort === 'price_asc') filtered.sort((a, b) => a.price - b.price);
+      if (sort === 'price_desc') filtered.sort((a, b) => b.price - a.price);
+      if (sort === 'rating_desc') filtered.sort((a, b) => b.rating - a.rating);
+
+      const grid = document.getElementById('catalogGrid');
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div class="alert alert-info" style="grid-column:1/-1;">Tidak ditemukan item yang sesuai dengan filter pencarian Anda.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(item => {
+        const isFav = appState.favorites.some(f => f.itemId === item.uid);
+        const fallbackDataUri = makeFallbackSvg(item.title, item.color);
+        const activeImg = item.imageUrl || fallbackDataUri;
+        const safeTitle = item.title.replace(/'/g, '');
+        const safeSub = `${item.category} • Wilayah ${item.region}`;
+
+        return `
+          <div class="card">
+            <div>
+              <div class="catalog-media-box">
+                <img src="${activeImg}" alt="${item.title}" class="catalog-thumb"
+                     onerror="this.src='${fallbackDataUri}'" />
+                <button type="button" class="zoom-photo-btn"
+                        onclick="openPhotoLightbox('${activeImg}', '${safeTitle}', '${safeSub}', '${item.color}')">
+                  🔍 Perbesar Foto
+                </button>
+              </div>
+
+              <div class="badge-row">
+                <span class="badge badge-region">${item.region}</span>
+                <span class="badge badge-rating">⭐ ${item.rating} (${item.revCount})</span>
+                <span class="badge ${item.halalOk ? 'badge-halal-ok' : 'badge-halal-warn'}">${item.badgeHalal}</span>
+              </div>
+
+              <h3 style="color:var(--emerald-dark); font-size:1.06rem; margin-bottom:6px;">${item.title}</h3>
+              <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:10px;">${item.desc}</p>
+              <div style="font-size:0.79rem; background:#f8fafc; padding:8px; border-radius:8px; margin-bottom:10px;">
+                <div style="margin-bottom:4px;">${item.extra1}</div>
+                <div>${item.extra2}</div>
+                ${item.latestRev ? `<div style="margin-top:6px; padding-top:5px; border-top:1px dashed #cbd5e1; color:#065f46; font-style:italic;">💬 ${item.latestRev}</div>` : ''}
+              </div>
+            </div>
+
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <div>
+                  <span class="price-tag">${item.price === 0 ? 'Gratis' : formatRp(item.price)}</span>
+                  <span class="sim-note">${item.type === 'spot' ? '/ tiket est.' : '/ sesi'}</span>
+                </div>
+                <button class="btn btn-sm btn-outline-dark" onclick="toggleFavorite('${item.uid}', '${item.type}', '${safeTitle}')">
+                  ${isFav ? '❤️ Tersimpan' : '🤍 Favorit'}
+                </button>
+              </div>
+
+              ${item.type === 'spot'
+                ? `<a href="${item.mapsUrl}" target="_blank" rel="noopener" class="btn btn-emerald btn-sm" style="width:100%;">📍 Buka Lokasi di Google Maps ↗</a>`
+                : `<button class="btn btn-emerald btn-sm" style="width:100%;" onclick="quickSelectForBooking('${item.uid}', '${item.type}')">📅 Pilih untuk Booking Sesi</button>`
+              }
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function quickSelectForBooking(uid, type) {
+      switchView('booking');
+      if (type === 'busana') document.getElementById('bookBusana').value = uid;
+      if (type === 'photo') document.getElementById('bookPhotoPkg').value = uid;
+      checkAvailabilityAndCalc();
+    }
+
+    // ==================== INTERACTIVE MIX & MATCH STUDIO WITH REAL PHOTO PREVIEW ====================
+    const STUDIO_OPTIONS = {
+      head: [
+        { name: 'Sunting Aceh Keemasan', price: 60000, svg: `<path d="M122 86 L132 62 L142 80 L150 56 L158 80 L168 62 L178 86 Z" fill="#f59e0b" stroke="#b45309" stroke-width="1.5"/>` },
+        { name: 'Kupiah Meukeutop (Pria)', price: 55000, svg: `<path d="M126 88 L130 62 L170 62 L174 88 Z" fill="#064e3b" stroke="#f59e0b" stroke-width="2"/><rect x="126" y="80" width="48" height="7" fill="#dc2626"/>` },
+        { name: 'Bulang Teleng Kerawang Gayo', price: 65000, svg: `<path d="M123 86 Q150 64 177 86 L173 72 Q150 58 127 72 Z" fill="#991b1b" stroke="#f59e0b" stroke-width="2"/>` }
+      ],
+      attire: [
+        {
+          id: 'BUS-01', name: 'Baju Daro Baro Emerald-Gold', price: 150000, color: '#064e3b', trim: '#f59e0b',
+          photoUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Pakaian_Adat_Aceh_Wanita.jpg?width=640'
+        },
+        {
+          id: 'BUS-03', name: 'Baju Kerawang Gayo Klasik', price: 160000, color: '#991b1b', trim: '#fde047',
+          photoUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Baju_Kerawang_Gayo.jpg?width=640'
+        },
+        {
+          id: 'BUS-02', name: 'Setelan Linto Baro Hitam Emas', price: 145000, color: '#1e293b', trim: '#f59e0b',
+          photoUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/LINTO_PHON.jpg?width=640'
+        },
+        {
+          id: 'BUS-08', name: 'Busana Adat Pesisir Biru Laut', price: 150000, color: '#0d9488', trim: '#fef3c7',
+          photoUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Tari_Saman_The_Dance_of_Thousand_Hand.jpg?width=640'
+        }
+      ],
+      acc: [
+        { name: 'Selempang Songket & Pending Emas', price: 35000, svg: `<path d="M120 148 L180 235" stroke="#f59e0b" stroke-width="9"/><rect x="122" y="205" width="56" height="10" rx="3" fill="#fbbf24" stroke="#92400e"/>` },
+        { name: 'Rencong Hias & Sabuk Perak', price: 40000, svg: `<rect x="122" y="205" width="56" height="10" rx="3" fill="#e2e8f0" stroke="#475569"/><path d="M155 208 L185 225 L180 230 L150 212 Z" fill="#f59e0b"/>` },
+        { name: 'Upuh Ulen-Ulen Selempang Gayo', price: 45000, svg: `<path d="M180 148 L120 235" stroke="#dc2626" stroke-width="10"/><path d="M180 148 L120 235" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4 3"/>` }
+      ],
+      bg: [
+        {
+          name: 'Taman Sari Gunongan (Banda Aceh)', sky: '#e0f2fe', hill: '#99f6e4',
+          photoUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Gunongan_Aceh_Sultanate,_diambil_5_May_2026.jpg?width=640'
+        },
+        {
+          name: 'Pantai Lampuuk Golden Hour (Aceh Besar)', sky: '#fef3c7', hill: '#fdba74',
+          photoUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Pantai_Lampuuk_Aceh.jpg?width=640'
+        },
+        {
+          name: 'Danau Laut Tawar Takengon (Aceh Tengah)', sky: '#ccfbf1', hill: '#6ee7b7',
+          photoUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Danau_Laut_Tawar_Takengon.jpg?width=640'
+        }
+      ]
+    };
+
+    let studioIdx = { head: 0, attire: 0, acc: 0, bg: 0 };
+
+    function renderStudio() {
+      const h = STUDIO_OPTIONS.head[studioIdx.head];
+      const a = STUDIO_OPTIONS.attire[studioIdx.attire];
+      const c = STUDIO_OPTIONS.acc[studioIdx.acc];
+      const b = STUDIO_OPTIONS.bg[studioIdx.bg];
+
+      document.getElementById('headName').textContent = h.name;
+      document.getElementById('headPrice').textContent = formatRp(h.price);
+      document.getElementById('attireName').textContent = a.name;
+      document.getElementById('attirePrice').textContent = formatRp(a.price);
+      document.getElementById('accName').textContent = c.name;
+      document.getElementById('accPrice').textContent = formatRp(c.price);
+      document.getElementById('bgName').textContent = b.name;
+      document.getElementById('studioSpotLabel').textContent = 'Latar: ' + b.name.split('(')[0].trim();
+
+      document.getElementById('svgBgSky').setAttribute('fill', b.sky);
+      document.getElementById('svgBgLandmark').setAttribute('fill', b.hill);
+      document.getElementById('svgLayerHead').innerHTML = h.svg;
+
+      document.getElementById('svgLayerAttire').innerHTML = `
+        <path d="M115 144 L185 144 L196 212 L104 212 Z" fill="${a.color}" stroke="${a.trim}" stroke-width="2"/>
+        <path d="M112 212 L188 212 L198 305 L102 305 Z" fill="${a.color}" stroke="${a.trim}" stroke-width="2"/>
+        <line x1="150" y1="144" x2="150" y2="305" stroke="${a.trim}" stroke-width="2.5" stroke-dasharray="5 3"/>
+        <polygon points="120,295 135,275 150,295 165,275 180,295" fill="none" stroke="${a.trim}" stroke-width="2"/>
+      `;
+      document.getElementById('svgLayerAcc').innerHTML = c.svg;
+
+      // Update Real Photo References
+      const attImg = document.getElementById('studioAttireRefImg');
+      attImg.src = a.photoUrl;
+      attImg.onerror = () => { attImg.src = makeFallbackSvg(a.name, a.color); };
+      document.getElementById('studioAttireRefLabel').textContent = a.name;
+
+      const bgImg = document.getElementById('studioBgRefImg');
+      bgImg.src = b.photoUrl;
+      bgImg.onerror = () => { bgImg.src = makeFallbackSvg(b.name, '#047857'); };
+      document.getElementById('studioBgRefLabel').textContent = b.name.split('(')[0].trim();
+
+      const total = h.price + a.price + c.price;
+      document.getElementById('studioTotalPrice').textContent = formatRp(total);
+    }
+
+    function cycleLayer(layer, dir) {
+      const len = STUDIO_OPTIONS[layer].length;
+      studioIdx[layer] = (studioIdx[layer] + dir + len) % len;
+      renderStudio();
+    }
+
+    function randomizeMixMatch() {
+      studioIdx.head = Math.floor(Math.random() * STUDIO_OPTIONS.head.length);
+      studioIdx.attire = Math.floor(Math.random() * STUDIO_OPTIONS.attire.length);
+      studioIdx.acc = Math.floor(Math.random() * STUDIO_OPTIONS.acc.length);
+      studioIdx.bg = Math.floor(Math.random() * STUDIO_OPTIONS.bg.length);
+      renderStudio();
+    }
+
+    function applyMixMatchToBooking() {
+      const h = STUDIO_OPTIONS.head[studioIdx.head];
+      const a = STUDIO_OPTIONS.attire[studioIdx.attire];
+      const c = STUDIO_OPTIONS.acc[studioIdx.acc];
+      switchView('booking');
+      if (document.getElementById('bookBusana').querySelector(`option[value="${a.id}"]`)) {
+        document.getElementById('bookBusana').value = a.id;
+      }
+      document.getElementById('bookNotes').value = `Mix & Match: ${a.name} + ${h.name} + ${c.name}`;
+      checkAvailabilityAndCalc();
+    }
+
+    function saveMixMatchFavorite() {
+      const h = STUDIO_OPTIONS.head[studioIdx.head];
+      const a = STUDIO_OPTIONS.attire[studioIdx.attire];
+      const uid = 'MIX-' + studioIdx.head + studioIdx.attire + studioIdx.acc;
+      toggleFavorite(uid, 'mixmatch', `Paduan: ${a.name} + ${h.name}`);
+      alert('Kombinasi Mix & Match berhasil disimpan ke Daftar Favorit!');
+    }
+
+    // ==================== BOOKING, GRANULAR STOCK CHECK & CALCULATOR ====================
+    function toggleSizeChart() {
+      const box = document.getElementById('sizeChartBox');
+      box.style.display = box.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function populateBookingSelects() {
+      const bSel = document.getElementById('bookBusana');
+      const sSel = document.getElementById('bookSpot');
+      const pSel = document.getElementById('bookPhotoPkg');
+      const curB = bSel.value;
+      const curS = sSel.value;
+      const curP = pSel.value;
+
+      bSel.innerHTML = appState.busana.map(b => `<option value="${b.id}">${b.nama} (${b.wilayah}) — ${formatRp(b.hargaSewa)}</option>`).join('');
+      sSel.innerHTML = appState.spots.map(s => `<option value="${s.id}">${s.nama} (${s.wilayah}) — Tiket Est. ${formatRp(s.estimasiTiket)}</option>`).join('');
+      pSel.innerHTML = appState.photoPackages.map(p => `<option value="${p.id}">${p.namaPaket} — ${formatRp(p.hargaPaket)}</option>`).join('');
+
+      if (curB) bSel.value = curB;
+      if (curS) sSel.value = curS;
+      if (curP) pSel.value = curP;
+
+      const dateInput = document.getElementById('bookDate');
+      if (!dateInput.value) dateInput.value = '2026-11-26';
+    }
+
+    function checkAvailabilityAndCalc() {
+      const busanaId = document.getElementById('bookBusana').value;
+      const spotId = document.getElementById('bookSpot').value;
+      const pkgId = document.getElementById('bookPhotoPkg').value;
+      const dateVal = document.getElementById('bookDate').value;
+      const sizeVal = document.getElementById('bookSize').value;
+      const slotVal = document.getElementById('bookSlot').value;
+      const pax = Math.max(1, Number(document.getElementById('bookPax').value) || 1);
+
+      const busana = appState.busana.find(b => b.id === busanaId) || appState.busana[0];
+      const spot = appState.spots.find(s => s.id === spotId) || appState.spots[0];
+      const pkg = appState.photoPackages.find(p => p.id === pkgId) || appState.photoPackages[0];
+
+      const fb = document.getElementById('availabilityFeedback');
+      const remainingStock = getAvailableStockForSlot(busana, sizeVal, dateVal, slotVal);
+      const isAvailable = remainingStock >= pax;
+
+      if (busana.tanggalTerbooking && busana.tanggalTerbooking.includes(dateVal)) {
+        fb.innerHTML = `<div class="alert alert-err">⚠️ Pada tanggal <strong>${dateVal}</strong> koleksi ini sedang dalam jadwal perawatan/laundry UMKM. Silakan pilih tanggal lain!</div>`;
+      } else if (remainingStock === 0) {
+        const altSizes = Object.entries(busana.stokPerUkuran || {})
+          .filter(([sz]) => getAvailableStockForSlot(busana, sz, dateVal, slotVal) > 0)
+          .map(([sz]) => sz);
+        fb.innerHTML = `<div class="alert alert-err">❌ Stok ukuran <strong>${sizeVal}</strong> penuh pada tanggal <strong>${dateVal}</strong> (${slotVal}). ${altSizes.length ? 'Ukuran lain yang masih tersedia di slot ini: <strong>' + altSizes.join(', ') + '</strong>.' : 'Coba ganti slot waktu (Pagi / Golden Hour).'}</div>`;
+      } else if (remainingStock < pax) {
+        fb.innerHTML = `<div class="alert alert-err">⚠️ Sisa stok ukuran <strong>${sizeVal}</strong> hanya <strong>${remainingStock} stel</strong> (tidak cukup untuk ${pax} peserta).</div>`;
+      } else {
+        fb.innerHTML = `<div class="alert alert-ok">✅ Tersedia! Sisa stok ukuran <strong>${sizeVal}</strong>: <strong>${remainingStock} stel</strong> pada tanggal <strong>${dateVal}</strong> (${slotVal}).</div>`;
+      }
+
+      const sewaTotal = busana.hargaSewa * pax;
+      const tiketTotal = spot.estimasiTiket * pax;
+      const grandTotal = sewaTotal + tiketTotal + pkg.hargaPaket;
+      const dpAmount = Math.round(grandTotal * 0.3);
+
+      document.getElementById('costBreakdown').innerHTML = `
+        <div>• Sewa Busana (${pax}x ${busana.nama} - Uk. ${sizeVal}): <strong>${formatRp(sewaTotal)}</strong></div>
+        <div>• Paket Fotografer (${pkg.namaPaket}): <strong>${formatRp(pkg.hargaPaket)}</strong></div>
+        <div>• Estimasi Tiket Masuk Spot (${pax}x ${spot.nama}): <strong>${formatRp(tiketTotal)}</strong></div>
+        <div style="font-size:0.8rem; color:var(--turquoise); margin-top:4px;">🕌 ${spot.fasilitasIbadah}</div>
+      `;
+      document.getElementById('bookingTotalDisplay').textContent = formatRp(grandTotal);
+      document.getElementById('bookingDpDisplay').textContent = formatRp(dpAmount);
+
+      const pemesan = document.getElementById('bookName').value || 'Wisatawan';
+      const notes = document.getElementById('bookNotes').value || '-';
+      const waText = encodeURIComponent(
+        `Halo ${busana.mitraUMKM}, saya *${pemesan}* ingin konfirmasi booking via *AdatLensa Aceh*:\n` +
+        `• Busana: ${busana.nama} (Ukuran ${sizeVal}, ${pax} stel)\n` +
+        `• Tanggal & Sesi: ${dateVal} | ${slotVal}\n` +
+        `• Spot Foto: ${spot.nama}\n` +
+        `• Paket Foto: ${pkg.namaPaket}\n` +
+        `• Catatan: ${notes}\n` +
+        `• Total: ${formatRp(grandTotal)} (DP 30%: ${formatRp(dpAmount)})\n` +
+        `*(Pesan Simulasi Demo)*`
+      );
+      document.getElementById('waCheckoutLink').href = `https://wa.me/${busana.kontakWA}?text=${waText}`;
+
+      return { isAvailable, busana, spot, pkg, grandTotal, dpAmount, dateVal, sizeVal, slotVal, pax };
+    }
+
+    function submitDemoBooking() {
+      const info = checkAvailabilityAndCalc();
+      const alertBox = document.getElementById('bookingCreatedAlert');
+
+      if (!info.isAvailable) {
+        alertBox.innerHTML = `<div class="alert alert-err">Pemesanan tidak dapat diproses karena stok ukuran pada tanggal & slot tersebut tidak mencukupi.</div>`;
+        return;
+      }
+
+      const code = '#ADL-' + Math.floor(1000 + Math.random() * 9000);
+      const newBooking = {
+        id: 'BK-' + Date.now(),
+        kodeNota: code,
+        userEmail: currentUser ? currentUser.email : 'guest@adatlensa.id',
+        namaPemesan: document.getElementById('bookName').value || 'Wisatawan',
+        tanggalKunjungan: info.dateVal,
+        slotWaktu: info.slotVal,
+        ukuranBusana: info.sizeVal,
+        pilihanMixMatch: document.getElementById('bookNotes').value || info.busana.nama,
+        idBusana: info.busana.id,
+        idSpotFoto: info.spot.id,
+        idPaketFotografer: info.pkg.id,
+        jumlahPeserta: info.pax,
+        totalAnggaran: info.grandTotal,
+        dpAmount: info.dpAmount,
+        paymentStatus: 'Menunggu DP 30% (QRIS)',
+        statusBooking: 'Menunggu Pembayaran DP',
+        reviewed: false
+      };
+
+      appState.bookings.unshift(newBooking);
+      saveState();
+
+      document.getElementById('trackCodeInput').value = code;
+      alertBox.innerHTML = `
+        <div class="alert alert-ok">
+          🎉 Booking Tersimpan! Kode Nota: <strong>${code}</strong>.<br>
+          <button class="btn btn-sm btn-gold" style="margin-top:8px;" onclick="openQrisModal('${newBooking.id}')">💳 Bayar DP 30% (${formatRp(info.dpAmount)}) via QRIS Sekarang</button>
+          <button class="btn btn-sm btn-outline-dark" style="margin-top:8px;" onclick="switchView('mybookings')">Lihat di Pesanan Saya →</button>
+        </div>
+      `;
+      checkAvailabilityAndCalc();
+    }
+
+    function trackBookingStatus() {
+      const code = document.getElementById('trackCodeInput').value.trim().toUpperCase();
+      const found = appState.bookings.find(b => b.kodeNota.toUpperCase() === code);
+      const box = document.getElementById('trackResultBox');
+
+      if (!found) {
+        box.innerHTML = `<div class="alert alert-err">Kode nota <strong>${code}</strong> tidak ditemukan. Coba gunakan <strong>#ADL-1024</strong>.</div>`;
+        return;
+      }
+
+      box.innerHTML = `
+        <div class="alert alert-info">
+          <div><strong>Kode Nota:</strong> ${found.kodeNota} (${found.namaPemesan})</div>
+          <div><strong>Jadwal:</strong> ${found.tanggalKunjungan} • ${found.slotWaktu}</div>
+          <div><strong>Detail:</strong> Ukuran ${found.ukuranBusana} (${found.jumlahPeserta} stel) — ${formatRp(found.totalAnggaran)}</div>
+          <div style="margin-top:6px;">
+            <span class="badge badge-halal-ok">${found.statusBooking}</span>
+            <span class="badge badge-cat">${found.paymentStatus}</span>
+          </div>
+        </div>
+      `;
+    }
+
+    // ==================== MY BOOKINGS (PESANAN SAYA), QRIS DP, WEATHER RESCHEDULE & REVIEW ====================
+    function renderMyBookings() {
+      const container = document.getElementById('myBookingsContainer');
+
+      if (!currentUser) {
+        container.innerHTML = `
+          <div class="card" style="grid-column:1/-1; text-align:center; padding:30px;">
+            <h3 style="color:var(--emerald-dark); margin-bottom:8px;">🔐 Masuk untuk Melihat Riwayat Pesanan Anda</h3>
+            <p style="color:var(--text-muted); margin-bottom:16px;">Masuk menggunakan akun Wisatawan untuk melakukan pembayaran DP QRIS, pengajuan reschedule cuaca hujan, dan pemberian ulasan.</p>
+            <div><button class="btn btn-emerald" onclick="switchView('login')">Masuk / Daftar Sekarang</button></div>
+          </div>
+        `;
+        return;
+      }
+
+      const myList = appState.bookings.filter(bk =>
+        bk.userEmail === currentUser.email || (currentUser.role === 'wisatawan' && bk.userEmail === 'guest@adatlensa.id')
+      );
+
+      if (myList.length === 0) {
+        container.innerHTML = `<div class="alert alert-info" style="grid-column:1/-1;">Belum ada pesanan atas nama <strong>${currentUser.name}</strong>. Silakan buat simulasi booking terlebih dahulu!</div>`;
+        return;
+      }
+
+      container.innerHTML = myList.map(bk => {
+        const busana = appState.busana.find(b => b.id === bk.idBusana);
+        const spot = appState.spots.find(s => s.id === bk.idSpotFoto);
+        const isDpPaid = bk.paymentStatus && bk.paymentStatus.includes('Lunas');
+
+        return `
+          <div class="card">
+            <div>
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                <span class="badge badge-region">${bk.kodeNota}</span>
+                <span class="badge ${isDpPaid ? 'badge-halal-ok' : 'badge-halal-warn'}">${bk.paymentStatus}</span>
+              </div>
+              <h3 style="color:var(--emerald-dark); margin-bottom:6px;">${busana ? busana.nama : 'Koleksi Busana Adat'}</h3>
+              <div style="font-size:0.84rem; color:var(--text-muted); line-height:1.7;">
+                <div>📅 <strong>Jadwal:</strong> ${bk.tanggalKunjungan} • ${bk.slotWaktu}</div>
+                <div>📍 <strong>Spot Foto:</strong> ${spot ? spot.nama : '-'}</div>
+                <div>👕 <strong>Ukuran & Jumlah:</strong> Ukuran ${bk.ukuranBusana} (${bk.jumlahPeserta} stel)</div>
+                <div>🎨 <strong>Catatan:</strong> ${bk.pilihanMixMatch}</div>
+                <div>💰 <strong>Total:</strong> ${formatRp(bk.totalAnggaran)} (DP 30%: <strong>${formatRp(bk.dpAmount || Math.round(bk.totalAnggaran * 0.3))}</strong>)</div>
+                <div style="margin-top:6px;"><strong>Status:</strong> <span class="badge badge-muslim">${bk.statusBooking}</span></div>
+              </div>
+            </div>
+
+            <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; padding-top:12px; border-top:1px solid var(--border);">
+              ${!isDpPaid ? `<button class="btn btn-sm btn-gold" onclick="openQrisModal('${bk.id}')">💳 Bayar DP QRIS</button>` : ''}
+              <button class="btn btn-sm btn-outline-dark" onclick="openRescheduleModal('${bk.id}')">🌧️ Reschedule Cuaca</button>
+              ${!bk.reviewed
+                ? `<button class="btn btn-sm btn-emerald" onclick="openReviewModal('${bk.id}')">⭐ Beri Ulasan</button>`
+                : `<span class="badge badge-rating">✅ Sudah Diulas</span>`
+              }
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function openQrisModal(bookingId) {
+      const bk = appState.bookings.find(b => b.id === bookingId);
+      if (!bk) return;
+      const dp = bk.dpAmount || Math.round(bk.totalAnggaran * 0.3);
+
+      document.getElementById('actionModalContent').innerHTML = `
+        <h3 style="color:var(--emerald-dark); margin-bottom:6px;">💳 Pembayaran DP 30% via QRIS (Simulasi)</h3>
+        <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:12px;">Kode Nota: <strong>${bk.kodeNota}</strong> • Nominal DP: <strong>${formatRp(dp)}</strong></p>
+        <div style="text-align:center; background:#f8fafc; padding:16px; border-radius:12px; border:1px dashed #94a3b8; margin-bottom:14px;">
+          <svg width="150" height="150" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <rect width="120" height="120" fill="#ffffff" stroke="#064e3b" stroke-width="2"/>
+            <rect x="12" y="12" width="28" height="28" fill="none" stroke="#064e3b" stroke-width="4"/>
+            <rect x="19" y="19" width="14" height="14" fill="#064e3b"/>
+            <rect x="80" y="12" width="28" height="28" fill="none" stroke="#064e3b" stroke-width="4"/>
+            <rect x="87" y="19" width="14" height="14" fill="#064e3b"/>
+            <rect x="12" y="80" width="28" height="28" fill="none" stroke="#064e3b" stroke-width="4"/>
+            <rect x="19" y="87" width="14" height="14" fill="#064e3b"/>
+            <rect x="50" y="20" width="10" height="10" fill="#047857"/>
+            <rect x="52" y="48" width="16" height="16" fill="#d97706"/>
+            <rect x="48" y="75" width="12" height="12" fill="#064e3b"/>
+            <rect x="75" y="55" width="14" height="14" fill="#064e3b"/>
+            <rect x="82" y="82" width="18" height="18" fill="#047857"/>
+          </svg>
+          <div style="font-size:0.78rem; font-weight:700; color:var(--emerald-dark); margin-top:6px;">QRIS ADATLENSA UMKM ACEH (DEMO)</div>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <button class="btn btn-emerald" style="flex:1;" onclick="confirmQrisPayment('${bk.id}')">✅ Konfirmasi DP Lunas</button>
+          <button class="btn btn-outline-dark" onclick="closeActionModal()">Tutup</button>
+        </div>
+      `;
+      document.getElementById('actionModalBackdrop').classList.add('open');
+    }
+
+    function confirmQrisPayment(bookingId) {
+      const bk = appState.bookings.find(b => b.id === bookingId);
+      if (bk) {
+        bk.paymentStatus = 'DP Lunas (QRIS Simulasi)';
+        bk.statusBooking = 'Busana Siap & Terjadwal';
+        saveState();
+      }
+      closeActionModal();
+      renderMyBookings();
+    }
+
+    function openRescheduleModal(bookingId) {
+      const bk = appState.bookings.find(b => b.id === bookingId);
+      if (!bk) return;
+      document.getElementById('actionModalContent').innerHTML = `
+        <h3 style="color:var(--emerald-dark); margin-bottom:6px;">🌧️ Mitigasi Cuaca — Reschedule Sesi Foto</h3>
+        <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:12px;">Gratis 1x pindah jadwal jika terjadi hujan lebat di spot outdoor.</p>
+        <div class="form-group">
+          <label>Pilih Tanggal Baru</label>
+          <input type="date" id="reschedDate" value="${bk.tanggalKunjungan}" />
+        </div>
+        <div class="form-group">
+          <label>Pilih Slot Sesi Baru</label>
+          <select id="reschedSlot">
+            <option value="08:00 - 09:30 WIB (Pagi Cerah)">08:00 – 09:30 WIB (Sesi Pagi)</option>
+            <option value="16:30 - 18:00 WIB (Golden Hour)">16:30 – 18:00 WIB (Golden Hour)</option>
+          </select>
+        </div>
+        <div id="reschedAlert"></div>
+        <div style="display:flex; gap:8px; margin-top:12px;">
+          <button class="btn btn-emerald" style="flex:1;" onclick="submitReschedule('${bk.id}')">💾 Simpan Jadwal Baru</button>
+          <button class="btn btn-outline-dark" onclick="closeActionModal()">Batal</button>
+        </div>
+      `;
+      document.getElementById('actionModalBackdrop').classList.add('open');
+    }
+
+    function submitReschedule(bookingId) {
+      const bk = appState.bookings.find(b => b.id === bookingId);
+      const busana = appState.busana.find(b => b.id === bk.idBusana);
+      const newDate = document.getElementById('reschedDate').value;
+      const newSlot = document.getElementById('reschedSlot').value;
+
+      const avail = getAvailableStockForSlot(busana, bk.ukuranBusana, newDate, newSlot, bk.id);
+      if (avail < bk.jumlahPeserta) {
+        document.getElementById('reschedAlert').innerHTML = `<div class="alert alert-err">❌ Stok ukuran ${bk.ukuranBusana} penuh pada tanggal & slot baru tersebut. Silakan pilih waktu lain.</div>`;
+        return;
+      }
+
+      bk.tanggalKunjungan = newDate;
+      bk.slotWaktu = newSlot;
+      bk.statusBooking = 'Dijadwalkan Ulang (Cuaca)';
+      saveState();
+      closeActionModal();
+      renderMyBookings();
+    }
+
+    function openReviewModal(bookingId) {
+      const bk = appState.bookings.find(b => b.id === bookingId);
+      if (!bk) return;
+      document.getElementById('actionModalContent').innerHTML = `
+        <h3 style="color:var(--emerald-dark); margin-bottom:6px;">⭐ Beri Rating & Ulasan Sesi Wisata</h3>
+        <p style="font-size:0.84rem; color:var(--text-muted); margin-bottom:12px;">Bagikan pengalaman Anda mengenai kebersihan busana adat & layanan fotografer.</p>
+        <div class="form-group">
+          <label>Penilaian Bintang</label>
+          <select id="reviewStars">
+            <option value="5">⭐⭐⭐⭐⭐ (5.0 — Sangat Memuaskan)</option>
+            <option value="4.8">⭐⭐⭐⭐⭐ (4.8 — Memuaskan)</option>
+            <option value="4">⭐⭐⭐⭐ (4.0 — Baik)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Ulasan Anda</label>
+          <textarea id="reviewComment" rows="3" required placeholder="Contoh: Busana harum, MUA Syar'i ramah, dan hasil foto sangat estetik!"></textarea>
+        </div>
+        <div style="display:flex; gap:8px; margin-top:10px;">
+          <button class="btn btn-gold" style="flex:1;" onclick="submitReview('${bk.id}')">✨ Kirim Ulasan</button>
+          <button class="btn btn-outline-dark" onclick="closeActionModal()">Batal</button>
+        </div>
+      `;
+      document.getElementById('actionModalBackdrop').classList.add('open');
+    }
+
+    function submitReview(bookingId) {
+      const bk = appState.bookings.find(b => b.id === bookingId);
+      const busana = appState.busana.find(b => b.id === bk.idBusana);
+      const rating = Number(document.getElementById('reviewStars').value);
+      const comment = document.getElementById('reviewComment').value.trim() || 'Pelayanan ramah Muslim dan busana sangat terawat!';
+
+      if (busana) {
+        if (!busana.reviews) busana.reviews = [];
+        busana.reviews.unshift({
+          user: bk.namaPemesan.split('(')[0].trim(),
+          rating,
+          comment,
+          date: new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' })
+        });
+      }
+      bk.reviewed = true;
+      saveState();
+      closeActionModal();
+      renderMyBookings();
+      renderCatalog();
+    }
+
+    function closeActionModal(e) {
+      if (!e || e.target.id === 'actionModalBackdrop') {
+        document.getElementById('actionModalBackdrop').classList.remove('open');
+      }
+    }
+
+    // ==================== WISHLIST / FAVORITES ====================
+    function toggleFavorite(itemId, tipeItem, titleLabel) {
+      const idx = appState.favorites.findIndex(f => f.itemId === itemId);
+      if (idx >= 0) {
+        appState.favorites.splice(idx, 1);
+      } else {
+        appState.favorites.push({
+          id: 'FAV-' + Date.now(),
+          itemId, tipeItem,
+          titleLabel: titleLabel || itemId,
+          tanggalDitambahkan: new Date().toLocaleDateString('id-ID')
+        });
+      }
+      saveState();
+      renderCatalog();
+      renderWishlist();
+    }
+
+    function updateWishlistCounter() {
+      const label = currentLang === 'id' ? 'Favorit' : 'Wishlist';
+      document.getElementById('navWishlistBtn').textContent = `${label} (${appState.favorites.length})`;
+    }
+
+    function renderWishlist() {
+      const grid = document.getElementById('wishlistGrid');
+      if (appState.favorites.length === 0) {
+        grid.innerHTML = `<div class="alert alert-info" style="grid-column:1/-1;">Belum ada item favorit tersimpan. Klik tombol <strong>Favorit</strong> pada katalog atau Studio Mix & Match.</div>`;
+        return;
+      }
+
+      grid.innerHTML = appState.favorites.map(f => `
+        <div class="card">
+          <div>
+            <span class="badge badge-cat">${f.tipeItem.toUpperCase()}</span>
+            <h3 style="color:var(--emerald-dark); margin:8px 0;">${f.titleLabel}</h3>
+            <p class="sim-note">Disimpan pada: ${f.tanggalDitambahkan}</p>
+          </div>
+          <button class="btn btn-danger btn-sm" style="margin-top:14px;" onclick="toggleFavorite('${f.itemId}', '${f.tipeItem}', '')">🗑️ Hapus dari Favorit</button>
+        </div>
+      `).join('');
+    }
+
+    // ==================== ADMIN DEMO CRUD + IMAGE UPLOAD ====================
+    function handleAdminImageUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const maxW = 540;
+          const scale = Math.min(1, maxW / img.width);
+          canvas.width = img.width * scale;
+          canvas.height = img.height * scale;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.78);
+          document.getElementById('admBusanaImgData').value = compressedDataUrl;
+          document.getElementById('admImgPreview').innerHTML = `<img src="${compressedDataUrl}" style="width:90px; height:60px; object-fit:cover; border-radius:6px; border:1px solid #cbd5e1;" />`;
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function switchAdminTab(tabName, btn) {
+      document.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('admin-tab-busana').style.display = tabName === 'busana' ? 'block' : 'none';
+      document.getElementById('admin-tab-spot').style.display = tabName === 'spot' ? 'block' : 'none';
+      document.getElementById('admin-tab-bookings').style.display = tabName === 'bookings' ? 'block' : 'none';
+      renderAdminTables();
+    }
+
+    function renderAdminTables() {
+      document.getElementById('adminBusanaTable').innerHTML = appState.busana.map(b => {
+        const st = b.stokPerUkuran || { S: 0, M: 0, L: 0, XL: 0 };
+        const fallbackUri = makeFallbackSvg(b.nama, b.warnaUtama);
+        const thumb = `<img src="${b.imageUrl || fallbackUri}" onerror="this.src='${fallbackUri}'" style="width:48px; height:36px; object-fit:cover; border-radius:5px; vertical-align:middle; margin-right:8px;" />`;
+        return `
+          <tr>
+            <td>${thumb}<strong>${b.nama}</strong><br><small class="text-muted">${b.mitraUMKM}</small></td>
+            <td>${b.wilayah}</td>
+            <td>S:${st.S} | M:${st.M} | L:${st.L} | XL:${st.XL}</td>
+            <td>${formatRp(b.hargaSewa)}</td>
+            <td>⭐ ${getAvgRating(b)} (${(b.reviews || []).length})</td>
+            <td>
+              <button class="btn btn-sm btn-outline-dark" onclick="editBusanaCRUD('${b.id}')">Edit</button>
+              <button class="btn btn-sm btn-danger" onclick="deleteBusanaCRUD('${b.id}')">Hapus</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+
+      document.getElementById('adminSpotTable').innerHTML = appState.spots.map(s => `
+        <tr>
+          <td><strong>${s.nama}</strong></td>
+          <td>${s.wilayah}</td>
+          <td>${formatRp(s.estimasiTiket)}</td>
+          <td>${s.fasilitasIbadah}</td>
+          <td><button class="btn btn-sm btn-danger" onclick="deleteSpotCRUD('${s.id}')">Hapus</button></td>
+        </tr>
+      `).join('');
+
+      document.getElementById('adminBookingTable').innerHTML = appState.bookings.map((bk, idx) => `
+        <tr>
+          <td><strong>${bk.kodeNota}</strong></td>
+          <td>${bk.namaPemesan}</td>
+          <td>${bk.tanggalKunjungan}<br><small>${bk.slotWaktu}</small></td>
+          <td>${bk.ukuranBusana} (${bk.jumlahPeserta} stel)</td>
+          <td><span class="badge ${bk.paymentStatus && bk.paymentStatus.includes('Lunas') ? 'badge-halal-ok' : 'badge-halal-warn'}">${bk.paymentStatus || 'Belum DP'}</span></td>
+          <td>
+            <select onchange="updateBookingStatus(${idx}, this.value)">
+              <option ${bk.statusBooking === 'Menunggu Pembayaran DP' ? 'selected' : ''}>Menunggu Pembayaran DP</option>
+              <option ${bk.statusBooking === 'Busana Siap & Terjadwal' ? 'selected' : ''}>Busana Siap & Terjadwal</option>
+              <option ${bk.statusBooking === 'Sesi Foto Berlangsung' ? 'selected' : ''}>Sesi Foto Berlangsung</option>
+              <option ${bk.statusBooking === 'Selesai' ? 'selected' : ''}>Selesai</option>
+              <option ${bk.statusBooking === 'Dibatalkan' ? 'selected' : ''}>Dibatalkan</option>
+            </select>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function saveBusanaCRUD() {
+      const id = document.getElementById('editBusanaId').value;
+      const nama = document.getElementById('admBusanaNama').value.trim();
+      if (!nama) return alert('Nama busana wajib diisi!');
+
+      const bookedRaw = document.getElementById('admBusanaBooked').value.trim();
+      const bookedArr = bookedRaw ? bookedRaw.split(',').map(s => s.trim()).filter(Boolean) : [];
+      const existing = id ? appState.busana.find(b => b.id === id) : null;
+
+      const payload = {
+        id: id || 'BUS-' + Date.now(),
+        nama,
+        asalBudaya: document.getElementById('admBusanaKat').value.includes('Gayo') ? 'Dataran Tinggi Gayo' : 'Aceh Pesisir',
+        kategori: document.getElementById('admBusanaKat').value,
+        wilayah: document.getElementById('admBusanaWil').value,
+        deskripsi: existing ? existing.deskripsi : 'Koleksi busana adat UMKM lokal dengan perawatan higienis dan siap pakai untuk sesi foto wisata.',
+        filosofiMotif: existing ? existing.filosofiMotif : 'Motif tradisional Aceh & Gayo yang mencerminkan keluhuran budaya.',
+        warnaUtama: existing ? existing.warnaUtama : '#064e3b',
+        imageUrl: document.getElementById('admBusanaImgData').value || (existing ? existing.imageUrl : 'https://commons.wikimedia.org/wiki/Special:FilePath/Pakaian_Adat_Aceh_Wanita.jpg?width=640'),
+        stokPerUkuran: {
+          S: Number(document.getElementById('admStokS').value) || 0,
+          M: Number(document.getElementById('admStokM').value) || 0,
+          L: Number(document.getElementById('admStokL').value) || 0,
+          XL: Number(document.getElementById('admStokXL').value) || 0
+        },
+        hargaSewa: Number(document.getElementById('admBusanaHarga').value) || 150000,
+        tanggalTerbooking: bookedArr,
+        mitraUMKM: document.getElementById('admBusanaMitra').value || 'Mitra UMKM Aceh (Demo)',
+        kontakWA: '6281200009999',
+        reviews: existing && existing.reviews ? existing.reviews : []
+      };
+
+      if (id) {
+        const idx = appState.busana.findIndex(b => b.id === id);
+        if (idx >= 0) appState.busana[idx] = payload;
+      } else {
+        appState.busana.unshift(payload);
+      }
+
+      saveState();
+      clearBusanaForm();
+      renderAdminTables();
+      renderCatalog();
+    }
+
+    function editBusanaCRUD(id) {
+      const b = appState.busana.find(x => x.id === id);
+      if (!b) return;
+      const st = b.stokPerUkuran || { S: 2, M: 2, L: 2, XL: 1 };
+      document.getElementById('editBusanaId').value = b.id;
+      document.getElementById('admBusanaNama').value = b.nama;
+      document.getElementById('admBusanaKat').value = b.kategori;
+      document.getElementById('admBusanaWil').value = b.wilayah;
+      document.getElementById('admBusanaHarga').value = b.hargaSewa;
+      document.getElementById('admBusanaMitra').value = b.mitraUMKM;
+      document.getElementById('admStokS').value = st.S;
+      document.getElementById('admStokM').value = st.M;
+      document.getElementById('admStokL').value = st.L;
+      document.getElementById('admStokXL').value = st.XL;
+      document.getElementById('admBusanaBooked').value = (b.tanggalTerbooking || []).join(', ');
+      document.getElementById('admBusanaImgData').value = b.imageUrl || '';
+      document.getElementById('admImgPreview').innerHTML = b.imageUrl ? `<img src="${b.imageUrl}" style="width:90px; height:60px; object-fit:cover; border-radius:6px;" />` : '';
+    }
+
+    function clearBusanaForm() {
+      document.getElementById('editBusanaId').value = '';
+      document.getElementById('admBusanaNama').value = '';
+      document.getElementById('admBusanaMitra').value = '';
+      document.getElementById('admBusanaBooked').value = '';
+      document.getElementById('admBusanaImgData').value = '';
+      document.getElementById('admImgPreview').innerHTML = '';
+      document.getElementById('admBusanaFile').value = '';
+    }
+
+    function deleteBusanaCRUD(id) {
+      if (confirm('Hapus item busana ini dari katalog demo?')) {
+        appState.busana = appState.busana.filter(b => b.id !== id);
+        saveState();
+        renderAdminTables();
+        renderCatalog();
+      }
+    }
+
+    function addSpotCRUD() {
+      const nama = document.getElementById('admSpotNama').value.trim();
+      if (!nama) return alert('Nama spot foto wajib diisi!');
+      const wil = document.getElementById('admSpotWil').value;
+      appState.spots.unshift({
+        id: 'SPOT-' + Date.now(),
+        nama, wilayah: wil, kategoriSpot: 'Wisata Budaya & Alam',
+        deskripsi: 'Destinasi wisata ikonik rekomendasi UMKM lokal untuk pemotretan berbusana adat.',
+        alamat: `${nama}, ${wil}, Aceh`,
+        mapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(nama + ' ' + wil + ' Aceh')}`,
+        imageUrl: 'https://commons.wikimedia.org/wiki/Special:FilePath/Gunongan_Aceh_Sultanate,_diambil_5_May_2026.jpg?width=640',
+        estimasiTiket: Number(document.getElementById('admSpotTiket').value) || 0,
+        fasilitasIbadah: document.getElementById('admSpotIbadah').value || 'Mushalla terdekat tersedia',
+        fasilitasRamahMuslim: document.getElementById('admSpotMuslim').value || 'Ruang ganti Muslimah tersedia',
+        waktuFotoTerbaik: '08.00 – 10.00 WIB & 16.30 – 18.00 WIB'
+      });
+      saveState();
+      document.getElementById('admSpotNama').value = '';
+      renderAdminTables();
+      renderCatalog();
+    }
+
+    function deleteSpotCRUD(id) {
+      if (confirm('Hapus spot foto ini?')) {
+        appState.spots = appState.spots.filter(s => s.id !== id);
+        saveState();
+        renderAdminTables();
+        renderCatalog();
+      }
+    }
+
+    function updateBookingStatus(idx, newStatus) {
+      appState.bookings[idx].statusBooking = newStatus;
+      saveState();
+    }
+
+    // ==================== INITIALIZATION ====================
+    function initAll() {
+      updateAuthUI();
+      applyLanguage();
+      selectMapRegion('Banda Aceh');
+      renderRecommendations();
+      renderCatalog();
+      renderStudio();
+      populateBookingSelects();
+      checkAvailabilityAndCalc();
+      renderAdminTables();
+    }
+
+    window.addEventListener('DOMContentLoaded', initAll);
+  </script>
+</body>
+</html>

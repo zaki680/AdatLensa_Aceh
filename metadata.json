@@ -1,0 +1,6 @@
+{
+  "name": "AdatLensa Aceh",
+  "description": "Platform wisata budaya halal, sewa busana adat Aceh & Gayo, studio Mix & Match interaktif, serta booking fotografer & MUA Syar'i UMKM lokal.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
